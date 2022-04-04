@@ -10,7 +10,12 @@
  * @return {double}         : latitude
  */
 double TrojanMap::GetLat(const std::string& id) {
-    return 0;
+  if(data.count(id) == 0){
+    return -1;
+  }
+  Node node = data[id];
+
+  return node.lat;
 }
 
 /**
@@ -20,7 +25,12 @@ double TrojanMap::GetLat(const std::string& id) {
  * @return {double}         : longitude
  */
 double TrojanMap::GetLon(const std::string& id) { 
-    return 0;
+  if(data.count(id) == 0){
+    return -1;
+  }
+  Node node = data[id];
+
+  return node.lon;
 }
 
 /**
@@ -30,7 +40,12 @@ double TrojanMap::GetLon(const std::string& id) {
  * @return {std::string}    : name
  */
 std::string TrojanMap::GetName(const std::string& id) { 
-    return "";
+  if(data.count(id) == 0){
+    return "NULL";
+  }
+  Node node = data[id];
+
+  return node.name;
 }
 
 /**
@@ -40,7 +55,11 @@ std::string TrojanMap::GetName(const std::string& id) {
  * @return {std::vector<std::string>}  : neighbor ids
  */
 std::vector<std::string> TrojanMap::GetNeighborIDs(const std::string& id) {
+  if(data.count(id) == 0){
     return {};
+  }
+  Node node = data[id];
+  return node.neighbors;
 }
 
 /**
@@ -51,6 +70,14 @@ std::vector<std::string> TrojanMap::GetNeighborIDs(const std::string& id) {
  * @return {int}  : id
  */
 std::string TrojanMap::GetID(const std::string& name) {
+  std::unordered_map<std::string, Node>::iterator iter;
+  iter = data.begin();
+  while(iter != data.end()){
+    if(iter->second.name == name){
+      return iter->second.id;
+    }
+    iter++;
+  }
   std::string res = "";
   return res;
 }
@@ -62,7 +89,16 @@ std::string TrojanMap::GetID(const std::string& name) {
  * @return {std::pair<double,double>}  : (lat, lon)
  */
 std::pair<double, double> TrojanMap::GetPosition(std::string name) {
-  std::pair<double, double> results(-1, -1);
+  std::string node_id = GetID(name);
+  std::pair<double, double> results;
+  if(node_id == ""){
+    results.first = -1;
+    results.second = -1;
+  }
+  else{
+    results.first = data[node_id].lat;
+    results.second = data[node_id].lon;
+  }
   return results;
 }
 
