@@ -180,7 +180,7 @@ std::vector<std::string> TrojanMap::Autocomplete(std::string name){
   for (auto iter = data.begin(); iter != data.end(); ++iter) {
     std::string name_node = iter->second.name;
     if(name_node.size() >= name_tolower.size()){
-      for(int i = 0; i < name_tolower.size(); ++i){
+      for(long unsigned int i = 0; i < name_tolower.size(); ++i){
         name_node[i] = tolower(name_node[i]);
       }
       if(name_node.find(name_tolower,0) == 0){
@@ -308,6 +308,59 @@ std::vector<std::string> TrojanMap::CalculateShortestPath_Dijkstra(
 std::vector<std::string> TrojanMap::CalculateShortestPath_Bellman_Ford(
     std::string location1_name, std::string location2_name){
   std::vector<std::string> path;
+  std::unordered_map<std::string, std::pair<double, std::string>> d;
+  std::queue<std::string> node_queue;
+  std::unordered_map<std::string, bool> visited;
+  std::stack<std::string> node_stack;
+
+  std::string start_id = GetID(location1_name);
+  d[start_id] = std::make_pair(0, "strat");
+  for(long unsigned int i = 0; i < data.size(); i++){
+    visited.clear();
+    visited[start_id] = true;
+    int count = 0;
+    node_queue.push(start_id);
+    bool flag = false;
+    while(!node_queue.empty()){
+      count++;
+      std::string node_id = node_queue.front();
+      for(auto n : GetNeighborIDs(node_id)){
+        double new_dis = d[node_id].first + CalculateDistance(node_id, n);
+        if(d.count(n) == 0){
+          flag = true;
+          d[n] = std::make_pair(new_dis, node_id);
+        }
+        else if(d[n].first > new_dis){
+          flag = true;
+          d[n] = std::make_pair(new_dis, node_id);
+        }
+
+        if(visited.count(n) == 0){
+          node_queue.push(n);
+          visited[n] = true;
+        }
+      }
+      node_queue.pop();
+
+    }
+    if(flag == false){
+      break;
+    }
+  }
+
+  std::string end_id = GetID(location2_name);
+  std::string node_id;
+  node_stack.push(end_id);
+  while(node_id != start_id){
+    node_id = node_stack.top();
+    if(node_id == start_id) break;
+    node_stack.push(d[node_id].second);
+  }
+
+  while(!node_stack.empty()){
+    path.push_back(node_stack.top());
+    node_stack.pop();
+  }
 
   return path;
 }
