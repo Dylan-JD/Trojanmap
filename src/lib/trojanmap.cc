@@ -534,3 +534,17 @@ void TrojanMap::CreateGraphFromCSVFile() {
   }
   fin.close();
 }
+
+
+//Initialize name_map;
+//Get id according to the name: O(1)
+void TrojanMap::InitNameMap(){
+  std::unordered_map<std::string, Node>::iterator iter;
+  iter = data.begin();
+  while(iter != data.end()){
+    if(!iter->second.name.empty()){
+      name_map[iter->second.name] = iter->second.id;
+    }
+    iter++;
+  }
+}
