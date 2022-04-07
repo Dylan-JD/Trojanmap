@@ -32,14 +32,19 @@ class Node {
 class TrojanMap {
  public:
   // Constructor
-  TrojanMap(){CreateGraphFromCSVFile();};
+  TrojanMap(){CreateGraphFromCSVFile();
+              InitNameMap();};
   
   // A map of ids to Nodes.
-  std::unordered_map<std::string, Node> data;  
+  std::unordered_map<std::string, Node> data;
+  std::unordered_map<std::string, std::string> name_map; //<name,id>   
 
   //-----------------------------------------------------
   // Read in the data
   void CreateGraphFromCSVFile();
+
+  //Initialize name_map;
+  void InitNameMap();
 
   //-----------------------------------------------------
   // TODO: Implement these functions and create unit tests for them:
