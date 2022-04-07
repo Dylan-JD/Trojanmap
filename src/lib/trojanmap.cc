@@ -179,6 +179,65 @@ double TrojanMap::CalculatePathLength(const std::vector<std::string> &path) {
 std::vector<std::string> TrojanMap::CalculateShortestPath_Dijkstra(
     std::string location1_name, std::string location2_name) {
   std::vector<std::string> path;
+  std::unordered_map<std::string, bool> visited;
+  std::unordered_map<std::string, std::pair<double, std::string>> d;
+  std::unordered_map<std::string, std::pair<double, std::string>> unvisited_node;
+  std::queue<std::string> node_queue;
+  std::stack<std::string> node_stack;
+  std::string start_id = GetID(location1_name);
+  node_queue.push(start_id);
+  d[start_id] = std::make_pair(0, "start");
+  visited[start_id] = true;
+  while(!node_queue.empty()){
+    std::string node_id = node_queue.front();
+    double min_dis = INT_MAX;
+    std::string min_node_id = "NULL";
+    for(auto n : GetNeighborIDs(node_id)){
+      if(visited.count(n) == 0){
+        double new_dis = d[node_id].first + CalculateDistance(node_id, n);
+        if(d.count(n) == 0){
+          d[n] = std::make_pair(new_dis, node_id);
+        }
+        else if(d[n].first > new_dis){
+          d[n] = std::make_pair(new_dis, node_id);
+        }
+        unvisited_node[n] = d[n];
+      }
+    }
+    std::unordered_map<std::string, std::pair<double, std::string>>::iterator iter;
+    iter = unvisited_node.begin();
+    while(iter != unvisited_node.end()){
+      if(visited.count(iter->first) == 0){
+        if(iter->second.first < min_dis){
+          min_node_id = iter->first;
+          min_dis = iter->second.first;
+        }
+      }
+      iter++;
+    }
+
+    if(min_node_id != "NULL" && visited.count(min_node_id) == 0){
+      std::cout<<min_node_id<<std::endl;
+      visited[min_node_id] = true;
+      unvisited_node.erase(min_node_id);
+      node_queue.push(min_node_id);
+    }
+    node_queue.pop();
+  }
+  std::string end_id = GetID(location2_name);
+  std::string node_id;
+  node_stack.push(end_id);
+  while(node_id != start_id){
+    node_id = node_stack.top();
+    if(node_id == start_id) break;
+    node_stack.push(d[node_id].second);
+  }
+
+  while(!node_stack.empty()){
+    path.push_back(node_stack.top());
+    node_stack.pop();
+  }
+  
   return path;
 }
 
@@ -193,6 +252,7 @@ std::vector<std::string> TrojanMap::CalculateShortestPath_Dijkstra(
 std::vector<std::string> TrojanMap::CalculateShortestPath_Bellman_Ford(
     std::string location1_name, std::string location2_name){
   std::vector<std::string> path;
+
   return path;
 }
 
