@@ -108,7 +108,29 @@ std::pair<double, double> TrojanMap::GetPosition(std::string name) {
  * 
  */
 int TrojanMap::CalculateEditDistance(std::string a, std::string b){
-    return 0;
+    int n = a.length();
+    int m = b.length();
+    if(n == 0) return m;
+    if(m == 0) return n;
+
+    std::vector<std::vector<int>> dp (n+1, std::vector<int>(m+1, INT_MAX));
+
+    for(int i = 0; i <= n; ++i){
+        for(int j = 0; j<= m; ++j){
+            if( i == 0){
+                dp[i][j] = j;
+            }else if(j == 0){
+                dp[i][j] = i;
+            }else{
+                if(a[i-1] == b[j-1]){
+                    dp[i][j] = 1 + std::min(dp[i-1][j-1]-1, std::min(dp[i-1][j], dp[i][j-1]));
+                }else{
+                    dp[i][j] = 1 + std::min(dp[i-1][j-1], std::min(dp[i-1][j], dp[i][j-1]));
+                }
+            }
+        }
+    }
+    return dp[n][m];
 }
 
 /**
@@ -119,6 +141,18 @@ int TrojanMap::CalculateEditDistance(std::string a, std::string b){
  */
 std::string TrojanMap::FindClosestName(std::string name) {
   std::string tmp = "";
+  int edit_distance = INT_MAX;
+  for (auto iter = data.begin(); iter != data.end(); ++iter) {
+    std::string name_node = iter->second.name;
+    if(name_node.size() != 0){
+      int distance = CalculateEditDistance(name, name_node);
+      if( distance < edit_distance){
+        edit_distance = distance;
+        tmp = name_node;
+      }
+    }
+  }
+
   return tmp;
 }
 
@@ -133,6 +167,9 @@ std::string TrojanMap::FindClosestName(std::string name) {
 std::vector<std::string> TrojanMap::Autocomplete(std::string name){
   std::vector<std::string> results;
   if(name.empty()) return results;
+  while(name[name.size()-1] == ' '){
+    name.erase(name.size()-1);
+  }
 
   std::string name_tolower = name;
   for (std::string::iterator it = name_tolower.begin(); it != name_tolower.end(); ++it)

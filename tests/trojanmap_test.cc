@@ -3,52 +3,52 @@
 #include "gtest/gtest.h"
 #include "src/lib/trojanmap.h"
 
-// Phase 1
-// Test Autocomplete function
-TEST(TrojanMapTest, Autocomplete) {
-  TrojanMap m;
-  // Test the simple case
-  auto names = m.Autocomplete("Chi");
-  std::unordered_set<std::string> gt = {"Chick-fil-A", "Chipotle", "Chinese Street Food"}; // groundtruth for "Ch"
-  int success = 0;
-  for (auto& n: names) {
-    EXPECT_EQ(gt.count(n) > 0, true) << n + " is not in gt.";
-    if (gt.count(n) > 0){
-      success++;
-    }
-  }
-  EXPECT_EQ(success, gt.size());
-  // Test the lower case
-  names = m.Autocomplete("chi");
-  success = 0;
-  for (auto& n: names) {
-    EXPECT_EQ(gt.count(n) > 0, true) << n + " is not in gt.";
-    if (gt.count(n) > 0){
-      success++;
-    }
-  }
-  EXPECT_EQ(success, gt.size());
-  // Test the lower and upper case 
-  names = m.Autocomplete("cHi"); 
-  success = 0;
-  for (auto& n: names) {
-    EXPECT_EQ(gt.count(n) > 0, true) << n + " is not in gt.";
-    if (gt.count(n) > 0){
-      success++;
-    }
-  }
-  EXPECT_EQ(success, gt.size());
-  // Test the upper case 
-  names = m.Autocomplete("CHI"); 
-  success = 0;
-  for (auto& n: names) {
-    EXPECT_EQ(gt.count(n) > 0, true) << n + " is not in gt.";
-    if (gt.count(n) > 0){
-      success++;
-    }
-  }
-  EXPECT_EQ(success, gt.size());
-}
+// // Phase 1
+// // Test Autocomplete function
+// TEST(TrojanMapTest, Autocomplete) {
+//   TrojanMap m;
+//   // Test the simple case
+//   auto names = m.Autocomplete("Chi");
+//   std::unordered_set<std::string> gt = {"Chick-fil-A", "Chipotle", "Chinese Street Food"}; // groundtruth for "Ch"
+//   int success = 0;
+//   for (auto& n: names) {
+//     EXPECT_EQ(gt.count(n) > 0, true) << n + " is not in gt.";
+//     if (gt.count(n) > 0){
+//       success++;
+//     }
+//   }
+//   EXPECT_EQ(success, gt.size());
+//   // Test the lower case
+//   names = m.Autocomplete("chi");
+//   success = 0;
+//   for (auto& n: names) {
+//     EXPECT_EQ(gt.count(n) > 0, true) << n + " is not in gt.";
+//     if (gt.count(n) > 0){
+//       success++;
+//     }
+//   }
+//   EXPECT_EQ(success, gt.size());
+//   // Test the lower and upper case 
+//   names = m.Autocomplete("cHi"); 
+//   success = 0;
+//   for (auto& n: names) {
+//     EXPECT_EQ(gt.count(n) > 0, true) << n + " is not in gt.";
+//     if (gt.count(n) > 0){
+//       success++;
+//     }
+//   }
+//   EXPECT_EQ(success, gt.size());
+//   // Test the upper case 
+//   names = m.Autocomplete("CHI"); 
+//   success = 0;
+//   for (auto& n: names) {
+//     EXPECT_EQ(gt.count(n) > 0, true) << n + " is not in gt.";
+//     if (gt.count(n) > 0){
+//       success++;
+//     }
+//   }
+//   EXPECT_EQ(success, gt.size());
+// }
 
 // // Test FindPosition function
 // TEST(TrojanMapTest, FindPosition) {
@@ -72,19 +72,19 @@ TEST(TrojanMapTest, Autocomplete) {
 //   EXPECT_EQ(position, gt4);
 // }
 
-// // Test CalculateEditDistance function
-// TEST(TrojanMapTest, CalculateEditDistance) {
-//   TrojanMap m;
-//   EXPECT_EQ(m.CalculateEditDistance("horse", "ros"), 3);
-//   EXPECT_EQ(m.CalculateEditDistance("intention", "execution"), 5);
-// }
+// Test CalculateEditDistance function
+TEST(TrojanMapTest, CalculateEditDistance) {
+  TrojanMap m;
+  EXPECT_EQ(m.CalculateEditDistance("horse", "ros"), 3);
+  EXPECT_EQ(m.CalculateEditDistance("intention", "execution"), 5);
+}
 
-// // Test FindClosestName function
-// TEST(TrojanMapTest, FindClosestName) {
-//   TrojanMap m;
-//   EXPECT_EQ(m.FindClosestName("Rolphs"), "Ralphs");
-//   EXPECT_EQ(m.FindClosestName("Targeety"), "Target");
-// }
+// Test FindClosestName function
+TEST(TrojanMapTest, FindClosestName) {
+  TrojanMap m;
+  EXPECT_EQ(m.FindClosestName("Rolphs"), "Ralphs");
+  EXPECT_EQ(m.FindClosestName("Targeety"), "Target");
+}
 
 // // Phase 2
 // // Test CalculateShortestPath_Dijkstra function
