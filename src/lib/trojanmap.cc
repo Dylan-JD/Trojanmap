@@ -436,7 +436,21 @@ std::vector<std::string> TrojanMap::DeliveringTrojan(std::vector<std::string> &l
  * @return {bool}                      : in square or not
  */
 bool TrojanMap::inSquare(std::string id, std::vector<double> &square) {
-  return false;
+  std::pair<double, double> pos;
+  pos = GetPosition(id);
+  if(pos.first < square[0]){
+    return false;
+  }
+  else if(pos.first > square[1]){
+    return false;
+  }
+  else if(pos.second > square[2]){
+    return false;
+  }
+  else if(pos.second < square[3]){
+    return false;
+  }
+  return true;
 }
 
 /**
