@@ -70,16 +70,10 @@ std::vector<std::string> TrojanMap::GetNeighborIDs(const std::string& id) {
  * @return {int}  : id
  */
 std::string TrojanMap::GetID(const std::string& name) {
-  std::unordered_map<std::string, Node>::iterator iter;
-  iter = data.begin();
-  while(iter != data.end()){
-    if(iter->second.name == name){
-      return iter->second.id;
-    }
-    iter++;
-  }
-  std::string res = "";
-  return res;
+  if(name_map.count(name) == 0)
+    return "";
+  else
+    return name_map[name];
 }
 
 /**
