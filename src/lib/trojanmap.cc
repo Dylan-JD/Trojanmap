@@ -369,7 +369,7 @@ std::vector<std::string> TrojanMap::CalculateShortestPath_Bellman_Ford(
 std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTrojan_Brute_force(
                                     std::vector<std::string> location_ids) {
   std::pair<double, std::vector<std::vector<std::string>>> records;
-
+  int count = 0;
   sort(location_ids.begin(), location_ids.end());
 
   location_ids.push_back(location_ids[0]);          //push the first id, to form a cycle
@@ -382,6 +382,10 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTr
     temp.push_back(location_ids[0]);
     // location_ids.push_back(location_ids[0]);
     double distance = CalculatePathLength(temp);
+
+    if(distance == 6.75754)
+      ++count;
+
     if(min_distance > distance ){
       records.first = min_distance;
       records.second.push_back(min_ids);
@@ -399,7 +403,7 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTr
     std::cout<<i<<std::endl;
   }
   std::cout<<"records size: "<<records.second.size()<<std::endl;
-
+  std::cout<<"count size: "<<count<<std::endl;
   return records;
 }
 
@@ -461,7 +465,24 @@ std::vector<std::string> TrojanMap::DeliveringTrojan(std::vector<std::string> &l
  * @return {bool}                      : in square or not
  */
 bool TrojanMap::inSquare(std::string id, std::vector<double> &square) {
-  return false;
+  double lat = GetLat(id);
+  double lon = GetLon(id);
+  if(lat == -1 && lon == -1){
+    return false;
+  }
+  if(lon < square[0]){
+    return false;
+  }
+  else if(lon > square[1]){
+    return false;
+  }
+  else if(lat > square[2]){
+    return false;
+  }
+  else if(lat < square[3]){
+    return false;
+  }
+  return true;
 }
 
 /**
@@ -473,6 +494,14 @@ bool TrojanMap::inSquare(std::string id, std::vector<double> &square) {
 std::vector<std::string> TrojanMap::GetSubgraph(std::vector<double> &square) {
   // include all the nodes in subgraph
   std::vector<std::string> subgraph;
+  std::unordered_map<std::string, Node>::iterator iter;
+  iter = data.begin();
+  while(iter != data.end()){
+    if(inSquare(iter->second.id, square) == true){
+      subgraph.push_back(iter->second.id);
+    }
+    iter++;
+  }
   return subgraph;
 }
 
@@ -485,6 +514,43 @@ std::vector<std::string> TrojanMap::GetSubgraph(std::vector<double> &square) {
  * @return {bool}: whether there is a cycle or not
  */
 bool TrojanMap::CycleDetection(std::vector<std::string> &subgraph, std::vector<double> &square) {
+  /*visited map: didn't exsited key means unvisited, true means visiting, false means visited*/
+  std::unordered_map<std::string, bool> visited;
+  for(auto i : subgraph){
+    if(visited.count(i) == 0){
+      if (CycleDetection_Helper(i, "-1", square, visited) == true){
+        return true;
+      }
+    }
+    std::cout<<visited[i]<<std::endl;
+  }
+  return false;
+}
+
+bool TrojanMap::CycleDetection_Helper(std::string node_id, std::string parent_id, 
+        std::vector<double> &square, std::unordered_map<std::string, bool> &visited) {
+    std::vector<std::string> neighbor = GetNeighborIDs(node_id);
+    visited[node_id] = true; 
+    for(auto n : neighbor){
+      if(n == parent_id){
+        continue;
+      }
+      if(inSquare(n, square) == true){
+        if(visited.count(n) == 0){
+          if(CycleDetection_Helper(n, node_id, square, visited) == true){
+              std::cout<<"if 1"<<std::endl;
+              return true;
+          }
+        }
+        else if(visited[n] == true){
+          std::cout<<"if 2"<<std::endl;
+          std::cout<<node_id<<std::endl;
+          std::cout<<n<<std::endl;
+          return true;
+        }
+      }
+      visited[node_id] = false;
+    }
   return false;
 }
 
