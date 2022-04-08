@@ -50,27 +50,27 @@
 //   EXPECT_EQ(success, gt.size());
 // }
 
-// Test FindPosition function
-TEST(TrojanMapTest, FindPosition) {
-  TrojanMap m;
+// // Test FindPosition function
+// TEST(TrojanMapTest, FindPosition) {
+//   TrojanMap m;
   
-  // Test Chick-fil-A
-  auto position = m.GetPosition("Chick-fil-A");
-  std::pair<double, double> gt1(34.0167334, -118.2825307); // groundtruth for "Chick-fil-A"
-  EXPECT_EQ(position, gt1);
-  // Test Ralphs
-  position = m.GetPosition("Ralphs");
-  std::pair<double, double> gt2(34.0317653, -118.2908339); // groundtruth for "Ralphs"
-  EXPECT_EQ(position, gt2);
-  // Test Target
-  position = m.GetPosition("Target");
-  std::pair<double, double> gt3(34.0257016, -118.2843512); // groundtruth for "Target"
-  EXPECT_EQ(position, gt3);
-  // Test Unknown
-  position = m.GetPosition("XXX");
-  std::pair<double, double> gt4(-1, -1);
-  EXPECT_EQ(position, gt4);
-}
+//   // Test Chick-fil-A
+//   auto position = m.GetPosition("Chick-fil-A");
+//   std::pair<double, double> gt1(34.0167334, -118.2825307); // groundtruth for "Chick-fil-A"
+//   EXPECT_EQ(position, gt1);
+//   // Test Ralphs
+//   position = m.GetPosition("Ralphs");
+//   std::pair<double, double> gt2(34.0317653, -118.2908339); // groundtruth for "Ralphs"
+//   EXPECT_EQ(position, gt2);
+//   // Test Target
+//   position = m.GetPosition("Target");
+//   std::pair<double, double> gt3(34.0257016, -118.2843512); // groundtruth for "Target"
+//   EXPECT_EQ(position, gt3);
+//   // Test Unknown
+//   position = m.GetPosition("XXX");
+//   std::pair<double, double> gt4(-1, -1);
+//   EXPECT_EQ(position, gt4);
+// }
 
 // // Test CalculateEditDistance function
 // TEST(TrojanMapTest, CalculateEditDistance) {
@@ -184,25 +184,25 @@ TEST(TrojanMapTest, FindPosition) {
 // }
 
 
-// // Phase 3
-// // Test TSP function
-// TEST(TrojanMapTest, TSP1) {
-//   TrojanMap m;
+// Phase 3
+// Test TSP function
+TEST(TrojanMapTest, TSP1) {
+  TrojanMap m;
   
-//   std::vector<std::string> input{"6819019976","6820935923","122702233","8566227783","8566227656","6816180153","1873055993","7771782316"}; // Input location ids 
-//   auto result = m.TravellingTrojan_Brute_force(input);
-//   std::cout << "My path length: "  << result.first << "miles" << std::endl; // Print the result path lengths
-//   std::vector<std::string> gt{"6819019976","1873055993","8566227656","122702233","8566227783","6816180153","7771782316","6820935923","6819019976"}; // Expected order
-//   std::cout << "GT path length: "  << m.CalculatePathLength(gt) << "miles" << std::endl; // Print the gt path lengths
-//   bool flag = false;
-//   if (gt == result.second[result.second.size()-1]) // clockwise
-//     flag = true;
-//   std::reverse(gt.begin(),gt.end()); // Reverse the expected order because the counterclockwise result is also correct
-//   if (gt == result.second[result.second.size()-1]) 
-//     flag = true;
+  std::vector<std::string> input{"6819019976","6820935923","122702233","8566227783","8566227656","6816180153","1873055993","7771782316"}; // Input location ids 
+  auto result = m.TravellingTrojan_Brute_force(input);
+  std::cout << "My path length: "  << result.first << "miles" << std::endl; // Print the result path lengths
+  std::vector<std::string> gt{"6819019976","1873055993","8566227656","122702233","8566227783","6816180153","7771782316","6820935923","6819019976"}; // Expected order
+  std::cout << "GT path length: "  << m.CalculatePathLength(gt) << "miles" << std::endl; // Print the gt path lengths
+  bool flag = false;
+  if (gt == result.second[result.second.size()-1]) // clockwise
+    flag = true;
+  std::reverse(gt.begin(),gt.end()); // Reverse the expected order because the counterclockwise result is also correct
+  if (gt == result.second[result.second.size()-1]) 
+    flag = true;
   
-//   EXPECT_EQ(flag, true);
-// }
+  EXPECT_EQ(flag, true);
+}
 
 // TEST(TrojanMapTest, TSP2) {
 //   TrojanMap m;
