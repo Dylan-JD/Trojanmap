@@ -51,26 +51,26 @@
 // }
 
 // Test FindPosition function
-TEST(TrojanMapTest, FindPosition) {
-  TrojanMap m;
+// TEST(TrojanMapTest, FindPosition) {
+//   TrojanMap m;
   
-  // Test Chick-fil-A
-  auto position = m.GetPosition("Chick-fil-A");
-  std::pair<double, double> gt1(34.0167334, -118.2825307); // groundtruth for "Chick-fil-A"
-  EXPECT_EQ(position, gt1);
-  // Test Ralphs
-  position = m.GetPosition("Ralphs");
-  std::pair<double, double> gt2(34.0317653, -118.2908339); // groundtruth for "Ralphs"
-  EXPECT_EQ(position, gt2);
-  // Test Target
-  position = m.GetPosition("Target");
-  std::pair<double, double> gt3(34.0257016, -118.2843512); // groundtruth for "Target"
-  EXPECT_EQ(position, gt3);
-  // Test Unknown
-  position = m.GetPosition("XXX");
-  std::pair<double, double> gt4(-1, -1);
-  EXPECT_EQ(position, gt4);
-}
+//   // Test Chick-fil-A
+//   auto position = m.GetPosition("Chick-fil-A");
+//   std::pair<double, double> gt1(34.0167334, -118.2825307); // groundtruth for "Chick-fil-A"
+//   EXPECT_EQ(position, gt1);
+//   // Test Ralphs
+//   position = m.GetPosition("Ralphs");
+//   std::pair<double, double> gt2(34.0317653, -118.2908339); // groundtruth for "Ralphs"
+//   EXPECT_EQ(position, gt2);
+//   // Test Target
+//   position = m.GetPosition("Target");
+//   std::pair<double, double> gt3(34.0257016, -118.2843512); // groundtruth for "Target"
+//   EXPECT_EQ(position, gt3);
+//   // Test Unknown
+//   position = m.GetPosition("XXX");
+//   std::pair<double, double> gt4(-1, -1);
+//   EXPECT_EQ(position, gt4);
+// }
 
 // // Test CalculateEditDistance function
 // TEST(TrojanMapTest, CalculateEditDistance) {
@@ -153,22 +153,22 @@ TEST(TrojanMapTest, FindPosition) {
 //   EXPECT_EQ(path, gt);
 // }
 
-// // Test cycle detection function
-// TEST(TrojanMapTest, CycleDetection) {
-//   TrojanMap m;
+// Test cycle detection function
+TEST(TrojanMapTest, CycleDetection) {
+  TrojanMap m;
   
-//   // Test case 1
-//   std::vector<double> square1 = {-118.299, -118.264, 34.032, 34.011};
-//   auto sub1 = m.GetSubgraph(square1);
-//   bool result1 = m.CycleDetection(sub1, square1);
-//   EXPECT_EQ(result1, true);
+  // Test case 1
+  std::vector<double> square1 = {-118.299, -118.264, 34.032, 34.011};
+  auto sub1 = m.GetSubgraph(square1);
+  bool result1 = m.CycleDetection(sub1, square1);
+  EXPECT_EQ(result1, true);
 
-//   // Test case 2
-//   std::vector<double> square2 = {-118.290, -118.289, 34.030, 34.020};
-//   auto sub2 = m.GetSubgraph(square2);
-//   bool result2 = m.CycleDetection(sub2, square2);
-//   EXPECT_EQ(result2, false);
-// }
+  // Test case 2
+  std::vector<double> square2 = {-118.290, -118.289, 34.030, 34.020};
+  auto sub2 = m.GetSubgraph(square2);
+  bool result2 = m.CycleDetection(sub2, square2);
+  EXPECT_EQ(result2, false);
+}
 
 
 

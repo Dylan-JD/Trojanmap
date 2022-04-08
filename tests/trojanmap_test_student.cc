@@ -50,3 +50,21 @@ TEST(TrojanMapStudentTest, GetPosition) {
   EXPECT_EQ(ans3, map.GetPosition("la"));
 }
 
+TEST(TrojanMapStudentTest, inSquare) {
+  TrojanMap map;
+  std::vector<double> square = {-118.299, -118.264, 34.032, 34.011};
+  EXPECT_EQ(false, map.inSquare("358786032", square));
+  EXPECT_EQ(true, map.inSquare("354063330",square));
+  EXPECT_EQ(false, map.inSquare("348129362", square));
+  EXPECT_EQ(false, map.inSquare("666",square));
+}
+
+TEST(TrojanMapStudentTest, GetSubgraph) {
+  TrojanMap map;
+  std::vector<double> square = {-118.2717843, -118.2717841, 34.0381882, 34.0381880};
+  std::vector<double> square2 = {-118.2717840, -118.2717841, 34.0381882, 34.0381880};
+  std::vector<std::string> ans1 = {"123067117"};
+  std::vector<std::string> ans2;
+  EXPECT_EQ(ans1, map.GetSubgraph(square));
+  EXPECT_EQ(ans2, map.GetSubgraph(square2));
+}
