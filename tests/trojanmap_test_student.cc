@@ -68,3 +68,14 @@ TEST(TrojanMapStudentTest, GetSubgraph) {
   EXPECT_EQ(ans1, map.GetSubgraph(square));
   EXPECT_EQ(ans2, map.GetSubgraph(square2));
 }
+
+
+
+
+
+
+
+
+
+
+

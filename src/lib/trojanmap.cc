@@ -369,6 +369,31 @@ std::vector<std::string> TrojanMap::CalculateShortestPath_Bellman_Ford(
 std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTrojan_Brute_force(
                                     std::vector<std::string> location_ids) {
   std::pair<double, std::vector<std::vector<std::string>>> records;
+  sort(location_ids.begin()+1, location_ids.end());
+
+  auto temp = location_ids;            // temp is added the the first id, to form a cycle
+  temp.push_back(location_ids[0]);
+  double min_distance = CalculatePathLength(temp);
+  std::vector<std::string> min_ids = temp; 
+
+  while(std::next_permutation(location_ids.begin()+1, location_ids.end())){
+    temp = location_ids;         // temp is added the the first id, to form a cycle
+    temp.push_back(location_ids[0]);
+    // location_ids.push_back(location_ids[0]);
+    double distance = CalculatePathLength(temp);
+
+    if(min_distance > distance ){
+      records.first = min_distance;
+      records.second.push_back(min_ids);
+      min_distance = distance;
+      min_ids = temp;
+    }else{
+      records.second.push_back(temp);
+    }
+    
+  }
+  records.first = min_distance;
+  records.second.push_back(min_ids);
   return records;
 }
 

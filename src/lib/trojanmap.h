@@ -44,6 +44,7 @@ class TrojanMap {
   void CreateGraphFromCSVFile();
 
   //Initialize name_map;
+  //Get id according to the name: O(1)
   void InitNameMap();
 
   //-----------------------------------------------------
@@ -127,6 +128,7 @@ class TrojanMap {
   bool CycleDetection(std::vector<std::string> &subgraph, std::vector<double> &square);
   bool CycleDetection_Helper(std::string node_id, std::string parent_id, std::vector<double> &square, 
         std::unordered_map<std::string, bool> &visited);
+
   // Given a location id and k, find the k closest points on the map
   std::vector<std::string> FindNearby(std::string, std::string, double, int);
   
