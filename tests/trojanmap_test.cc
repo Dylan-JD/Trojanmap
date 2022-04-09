@@ -172,16 +172,16 @@
 
 
 
-// // // Test cycle detection function
-// // TEST(TrojanMapTest, TopologicalSort) {
-// //   TrojanMap m;
+// Test cycle detection function
+TEST(TrojanMapTest, TopologicalSort) {
+  TrojanMap m;
   
-// //   std::vector<std::string> location_names = {"Ralphs", "Chick-fil-A", "KFC"};
-// //   std::vector<std::vector<std::string>> dependencies = {{"Ralphs","KFC"}, {"Ralphs","Chick-fil-A"}, {"KFC","Chick-fil-A"}};
-// //   auto result = m.DeliveringTrojan(location_names, dependencies);
-// //   std::vector<std::string> gt ={"Ralphs", "KFC","Chick-fil-A"};
-// //   EXPECT_EQ(result, gt);
-// // }
+  std::vector<std::string> location_names = {"Ralphs", "Chick-fil-A", "KFC"};
+  std::vector<std::vector<std::string>> dependencies = {{"Ralphs","KFC"}, {"Ralphs","Chick-fil-A"}, {"KFC","Chick-fil-A"}};
+  auto result = m.DeliveringTrojan(location_names, dependencies);
+  std::vector<std::string> gt ={"Ralphs", "KFC","Chick-fil-A"};
+  EXPECT_EQ(result, gt);
+}
 
 
 // // Phase 3
@@ -219,8 +219,8 @@ TEST(TrojanMapTest, TSP2) {
   if (gt == result.second[result.second.size()-1]) 
     flag = true;
   
-  EXPECT_EQ(flag, true);
-}
+//   EXPECT_EQ(flag, true);
+// }
 
 // TEST(TrojanMapTest, TSP3) {
 //   TrojanMap m;

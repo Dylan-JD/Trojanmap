@@ -450,6 +450,14 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTr
  */
 std::vector<std::string> TrojanMap::ReadLocationsFromCSVFile(std::string locations_filename){
   std::vector<std::string> location_names_from_csv;
+  std::fstream fin;
+  fin.open(locations_filename, std::ios::in);
+  std::string line, word;
+
+  getline(fin, line);
+  while (getline(fin, line)) {
+    location_names_from_csv.push_back(line);
+  }
   return location_names_from_csv;
 }
 
@@ -462,6 +470,19 @@ std::vector<std::string> TrojanMap::ReadLocationsFromCSVFile(std::string locatio
  */
 std::vector<std::vector<std::string>> TrojanMap::ReadDependenciesFromCSVFile(std::string dependencies_filename){
   std::vector<std::vector<std::string>> dependencies_from_csv;
+  std::fstream fin;
+  fin.open(dependencies_filename, std::ios::in);
+  std::string line, word;
+
+  getline(fin, line);
+  while (getline(fin, line)) {
+    std::stringstream s(line);
+    std::vector<std::string> single_line;
+    while(getline(s, word, ',')){
+      single_line.push_back(word);
+    }
+    dependencies_from_csv.push_back(single_line);
+  }
   return dependencies_from_csv;
 }
 
@@ -475,8 +496,59 @@ std::vector<std::vector<std::string>> TrojanMap::ReadDependenciesFromCSVFile(std
  */
 std::vector<std::string> TrojanMap::DeliveringTrojan(std::vector<std::string> &locations,
                                                      std::vector<std::vector<std::string>> &dependencies){
+  std::unordered_map<std::string, std::vector<std::string>> adj;
+  for(auto n : locations){
+    std::vector<std::string> temp;
+    adj[n] = temp;
+  }
+
+  for(auto n:dependencies){
+    adj[n[0]].push_back(n[1]);
+  }
+  std::unordered_map<std::string, std::vector<std::string>>::iterator iter = adj.begin();
+  std::unordered_map<std::string, bool> visited;
+  std::queue<std::string> bfs_queue;
   std::vector<std::string> result;
-  return result;                                                     
+  std::unordered_map<std::string, int> indegree;
+  std::unordered_map<std::string, int>::iterator degree_iter;
+  
+  for(auto n : locations){
+    indegree[n] = 0;
+  }
+  
+  while(iter != adj.end()){
+    for(auto n: iter->second){
+        indegree[n]++;
+    }
+    iter++;
+  }
+
+  degree_iter = indegree.begin();
+  while(degree_iter != indegree.end()){
+    if(degree_iter->second == 0){
+      bfs_queue.push(degree_iter->first);
+    }
+    degree_iter++;
+  }
+
+  while(!bfs_queue.empty()){
+    std::string name = bfs_queue.front();
+    bfs_queue.pop();
+    result.push_back(name);
+    for(auto n : adj[name]){
+      indegree[n]--;
+      if(indegree[n] == 0){
+        bfs_queue.push(n);
+      }
+    }
+  }
+
+  if(result.size() == locations.size()){
+    return result;
+  }
+  else{
+    return {};
+  }                                          
 }
 
 /**
