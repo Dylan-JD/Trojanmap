@@ -69,6 +69,42 @@ TEST(TrojanMapStudentTest, GetSubgraph) {
   EXPECT_EQ(ans2, map.GetSubgraph(square2));
 }
 
+TEST(TrojanMapStudentTest, ReadLocationsFromCSVFile) {
+  TrojanMap map;
+  std::vector<std::string> ans = {"Ralphs", "KFC", "Chick-fil-A"};
+  std::string locations_filename = "/home/ee538/Desktop/EE538_HW/final-project-Dylan-JD/input/topologicalsort_locations.csv";
+  EXPECT_EQ(ans, map.ReadLocationsFromCSVFile(locations_filename));
+}
+
+TEST(TrojanMapStudentTest, ReadDependenciesFromCSVFile) {
+  TrojanMap map;
+  std::vector<std::string> str1 = {"Ralphs","Chick-fil-A"};
+  std::vector<std::string> str2 = {"Ralphs","KFC"};
+  std::vector<std::string> str3 = {"Chick-fil-A","KFC"};
+  std::vector<std::vector<std::string>>  ans = {str1, str2, str3};
+  std::string dependencies_filename = "/home/ee538/Desktop/EE538_HW/final-project-Dylan-JD/input/topologicalsort_dependencies.csv";
+  EXPECT_EQ(ans, map.ReadDependenciesFromCSVFile(dependencies_filename));
+}
+
+TEST(TrojanMapStudentTest, TopologicalSort) {
+  TrojanMap m;
+  
+  std::vector<std::string> location_names = {"Ralphs", "Chick-fil-A", "KFC"};
+  std::vector<std::vector<std::string>> dependencies = {{"Ralphs","KFC"}, {"Ralphs","Chick-fil-A"}, {"Chick-fil-A", "Ralphs"}};
+  auto result = m.DeliveringTrojan(location_names, dependencies);
+  std::vector<std::string> gt;
+  EXPECT_EQ(result, gt);
+  std::vector<std::string> location_names2 = {"Ralphs", "Chick-fil-A", "KFC", "Arco", "Trojan Grounds (Starbucks)"};
+  std::vector<std::vector<std::string>> dependencies2 = {{"Ralphs","KFC"}, {"Ralphs","Chick-fil-A"}, {"Chick-fil-A", "KFC"}};
+  auto result2 = m.DeliveringTrojan(location_names2, dependencies2);
+  std::vector<std::string> gt2 = {"Trojan Grounds (Starbucks)", "Arco", "Ralphs", "Chick-fil-A", "KFC" };
+  EXPECT_EQ(result2, gt2);
+  std::vector<std::vector<std::string>> dependencies3 = {{"Ralphs","KFC"}, {"Ralphs","Chick-fil-A"}, 
+                                                        {"Chick-fil-A", "KFC"}, {"KFC", "Arco"}, {"Arco", "Trojan Grounds (Starbucks)"}};
+  auto result3 = m.DeliveringTrojan(location_names2, dependencies3);
+   std::vector<std::string> gt3 = {"Ralphs", "Chick-fil-A", "KFC", "Arco", "Trojan Grounds (Starbucks)"};
+  EXPECT_EQ(result3, gt3);
+}
 
 
 
