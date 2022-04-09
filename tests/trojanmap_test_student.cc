@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "src/lib/trojanmap.h"
+// #include "src/lib/mapui.h"
 
 
 TEST(TrojanMapStudentTest, GetLat) {
@@ -68,8 +69,6 @@ TEST(TrojanMapStudentTest, GetSubgraph) {
   EXPECT_EQ(ans1, map.GetSubgraph(square));
   EXPECT_EQ(ans2, map.GetSubgraph(square2));
 }
-
-
 
 
 
