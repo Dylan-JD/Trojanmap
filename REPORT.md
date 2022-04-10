@@ -7,6 +7,19 @@ In this program, we have such data structures, the class Node and class Trojanma
 ## 2.Function Descriptions
 
 ### 2.1.Auto complete
+#### 2.1.1.Detailed description
+##### 1> Input and Return Value
+
+##### 2> Boundary Conditions Check
+
+##### 3> Implementation method
+
+#### 2.1.2.Time Complexity Analysis
+
+#### 2.1.3.Time Spent
+Time taken by function: 0 ms
+#### 2.1.4 helper functions
+
 
 ### 2.2.GetPosition
 #### 2.2.1.Detailed description
