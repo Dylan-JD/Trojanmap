@@ -1,5 +1,6 @@
 # EE538 Final Project - Spring 2022 - TrojanMap
 ## 1.Overview
+![node_attributes](https://user-images.githubusercontent.com/97215161/162642443-c03728f6-7356-4945-baae-0d44264eb178.jpg)
 
 ## 2.Function Descriptions
 
