@@ -9,6 +9,8 @@ In this program, we have such data structures, the class Node and class Trojanma
 ### 2.1.Auto complete
 #### 2.1.1.Detailed description
 ##### 1> Input and Return Value
+Input: the partial name of the location (std::string name)
+Return value: a list of possible locations with partial name as prefix (std::vector<std::string>)
 
 ##### 2> Boundary Conditions Check
 
