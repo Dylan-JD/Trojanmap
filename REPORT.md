@@ -1,4 +1,5 @@
 # EE538 Final Project - Spring 2022 - TrojanMap
+Students: Jian Dong, Zi Yan
 ## 1.Overview
 In this program, we have such data structures, the class Node and class Trojanmap.
 ![node_attributes](https://user-images.githubusercontent.com/97215161/162642443-c03728f6-7356-4945-baae-0d44264eb178.jpg)
