@@ -385,7 +385,6 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTr
   while(std::next_permutation(location_ids.begin()+1, location_ids.end())){
     temp = location_ids;         // temp is added the the first id, to form a cycle
     temp.push_back(location_ids[0]);
-    // location_ids.push_back(location_ids[0]);
     double distance = CalculatePathLength(temp);
 
     if(min_distance > distance ){
@@ -403,9 +402,42 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTr
   return records;
 }
 
+void TrojanMap::backTracking_helper(std::vector<std::string>& location_ids, 
+                                    std::pair<double, std::vector<std::vector<std::string>>> & records,
+                                    int level, double& min_distance, std::vector<std::string>& min_ids){
+  if(level == location_ids.size()){
+    auto temp = location_ids;         // temp is added the the first id, to form a cycle
+    temp.push_back(location_ids[0]);
+    double distance = CalculatePathLength(temp);
+    
+    if(min_distance > distance ){
+      if(!min_ids.empty())
+        records.second.push_back(min_ids);
+      min_distance = distance;
+      min_ids = temp;
+    }else{
+      if(!min_ids.empty())
+        records.second.push_back(temp);
+    }
+    return ;
+  }
+  
+  for(int i = level; i < location_ids.size(); ++i){
+    swap(location_ids[i],location_ids[level]);
+    backTracking_helper(location_ids,records,level+1, min_distance, min_ids);
+    swap(location_ids[i],location_ids[level]);
+  }
+}
+
 std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTrojan_Backtracking(
                                     std::vector<std::string> location_ids) {
   std::pair<double, std::vector<std::vector<std::string>>> records;
+  records.first = DBL_MAX;
+  double min_distance = DBL_MAX;
+  std::vector<std::string> min_ids;
+  backTracking_helper(location_ids,records,0, min_distance, min_ids);
+  records.first = min_distance;
+  records.second.push_back(min_ids);
   return records;
 }
 

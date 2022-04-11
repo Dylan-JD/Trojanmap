@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "src/lib/trojanmap.h"
+// #include "src/lib/mapui.h"
 
 
 TEST(TrojanMapStudentTest, GetLat) {
@@ -105,8 +106,6 @@ TEST(TrojanMapStudentTest, TopologicalSort) {
    std::vector<std::string> gt3 = {"Ralphs", "Chick-fil-A", "KFC", "Arco", "Trojan Grounds (Starbucks)"};
   EXPECT_EQ(result3, gt3);
 }
-
-
 
 
 
