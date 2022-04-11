@@ -27,8 +27,7 @@ Return value: a list of possible locations with partial name as prefix (std::vec
 O(n*m), n is the length of input name, m is the size of data.  
 We need to traverse all nodes on the map and compare two strings.
 #### 2.1.3.Time Spent
-Time taken by function: 0 ms
-#### 2.1.4 helper functions
+Time taken by function: 2 ms
 
 
 ### 2.2.GetPosition
