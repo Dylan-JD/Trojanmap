@@ -147,7 +147,7 @@ If the input name is invalid, the function returns an empty vector.
 #### 2.4.3.Time Spent
 If I choose Ralphs as my starting point, Chick-fil-A as my ending point.
 - Dijkstra:
-Time taken by function: 1732 ms
+Time taken by function: 1031 ms
 
 - Bellman_Ford:
-Time taken by function: 10931 ms
+Time taken by function: 11674 ms
