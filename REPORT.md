@@ -1,7 +1,7 @@
 # EE538 Final Project - Spring 2022 - TrojanMap
 Students: Jian Dong, Zi Yan
 ## 1.Overview
-In this program, we have such data structures, the class Node and class Trojanmap.
+In this program, we have such data structures, the class Node and class Trojanmap. The attributes is shown as below diagram.
 ![node_attributes](https://user-images.githubusercontent.com/97215161/162642443-c03728f6-7356-4945-baae-0d44264eb178.jpg)
 
 ## 2.Function Descriptions
@@ -37,7 +37,10 @@ First, the input of this fucntions is location name(std::string type) and the re
 ##### 2> Boundary Conditions Check
 In this function, the input is location name, so we need to check if the location name exists. So we check the return value of GetID to check if the input value is correct. If it isn't correct, the function would return (-1, -1).
 ##### 3> Implementation method
-For this function, I used data maps and a helper function. Because the input value is location name but the key of data map is id, so first I call the GetID function to get the id through the location name. Then, I use id as the index to get the node. Through the attribute in the node we can get latitude and longitude of this location name. Then return the pair of (latitude, longitude) as the return value of this function.
+For this function, I used data maps and a helper function. Because the input value is location name but the key of data map is id, so  
+1) first, I call the GetID function to get the id through the location name. 
+2) Then, I use id as the index to get the node. Through the attribute in the node we can get latitude and longitude of this location name. 
+3) Then return the pair of (latitude, longitude) as the return value of this function.
 #### 2.2.2.Time Complexity Analysis
 For this function, the helper function GetID contribute the main run time comlplexity. The complexity for GetID is the complexity of searching the key in a unordered_map, it is O(1), and the other operation of GetPosition is constant time complexity, so the time complexity is O(1).
 #### 2.2.3.Time Spent
@@ -72,3 +75,16 @@ O(n*m), n is the length of input name, m is the size of data.
 We need to traverse all nodes on the map and compare two strings.
 #### 2.3.3.Time Spent
 Time taken by function: 2 ms
+
+### 2.4. Step 3: CalculateShortestPath between two places
+#### 2.3.1.Detailed description
+##### 1> Input and Return Value
+- Dijkstra: Given 2 locations, return the shortest path which is a list of id.
+Input: {std::string} location1_name: start, {std::string} location2_name: goal
+Return value: {std::vector<std::string>}: path
+
+- Bellman_Ford: Given 2 locations, return the shortest path which is a list of id.
+Input: {std::string} location1_name: start, {std::string} location2_name: goal
+Return value: {std::vector<std::string>}: path
+
+##### 2> Boundary Conditions Check
