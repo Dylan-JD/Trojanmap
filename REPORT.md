@@ -24,7 +24,8 @@ Return value: a list of possible locations with partial name as prefix (std::vec
 4) Covert two strings to the lower cases
 5) If the input name is found in the node's name and the index is 0, push the node’s name into result vector
 #### 2.1.2.Time Complexity Analysis
-O(n*m), n is the length of input name, m is the size of data.
+O(n*m), n is the length of input name, m is the size of data.  
+We need to traverse all nodes on the map and compare two strings.
 #### 2.1.3.Time Spent
 Time taken by function: 0 ms
 #### 2.1.4 helper functions
