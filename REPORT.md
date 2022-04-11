@@ -46,3 +46,24 @@ Time taken by function: 0 ms
 Under this step, we have created a lot of helper funtions to get the attributes of the node, Including GetLat, GetLon, GetName, GetNeighborIDs, GetID. Except GetID, the rest of them are all take ID of the node and return the node's attributes. I just use their id to index the node in data map, and return the attributes value of the node. For all of them we have checked if the id exists in the map. For these functions they only take O(1) to find the id in the map. While for GetID, it takes the location name and return ID, so we need to iterate the data map to find which node's name satisfy the requirement. So it would take O(N). So to avoid iteratint the map every time that we called the GetID. We create a unordered_map data structure called name_map, the key is name and the value is id. It will create when constructing the Trojan class objects. So our GetID function can index the name in O(1) time complexity.
 
 ### 2.3.EditDistance
+#### 2.3.1.Detailed description
+##### 1> Input and Return Value
+Input: the partial name of the location (std::string name)   
+Return value: a list of possible locations with partial name as prefix (std::vector< std::string >)
+
+##### 2> Boundary Conditions Check
+- If the input is empty, the function returns an empty.
+- If the input is not found, the function returns an empty and outputs "No matched locations."
+- Otherwise, the function returns a vector of names given a partial name.
+
+##### 3> Implementation method
+1) Remove spaces (if exist) from the end of the input string
+2) Traverse all nodes on the map
+3) If the size of input is greater than the size of node’s name, we skip this node
+4) Covert two strings to the lower cases
+5) If the input name is found in the node's name and the index is 0, push the node’s name into result vector
+#### 2.3.2.Time Complexity Analysis
+O(n*m), n is the length of input name, m is the size of data.  
+We need to traverse all nodes on the map and compare two strings.
+#### 2.3.3.Time Spent
+Time taken by function: 2 ms
