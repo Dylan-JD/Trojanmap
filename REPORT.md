@@ -48,11 +48,11 @@ Under this step, we have created a lot of helper funtions to get the attributes 
 ### 2.3. Step 2-2: Check edit distance between two location names
 #### 2.3.1.Detailed description
 ##### 1> Input and Return Value
-- FindClosestName: Given a location name, return the name with smallest edit distance.
+- FindClosestName: Given a location name, return the name with smallest edit distance.  
 Input: {std::string} name: location name      
 Return value: {std::string} tmp: similar name  
 
-- CalculateEditDistance: Calculate edit distance between two location names
+- CalculateEditDistance: Calculate edit distance between two location names   
 Input: {std::string} a, {std::string} b: two location names      
 Return value: {int} distance: edit distance 
 
