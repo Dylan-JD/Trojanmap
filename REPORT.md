@@ -19,8 +19,10 @@ Return value: a list of possible locations with partial name as prefix (std::vec
 
 ##### 3> Implementation method
 1) Remove spaces (if exist) from the end of the input string
-2) 123
-3) 412 
+2) Traverse all nodes on the map
+3) If the size of input is greater than the size of node’s name, we skip this node
+4) Covert two strings to the lower cases
+5) If the input name is found in the node's name and the index is 0, push the node’s name into result vector
 #### 2.1.2.Time Complexity Analysis
 
 #### 2.1.3.Time Spent
