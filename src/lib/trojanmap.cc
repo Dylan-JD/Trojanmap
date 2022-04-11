@@ -235,6 +235,10 @@ std::vector<std::string> TrojanMap::CalculateShortestPath_Dijkstra(
   std::queue<std::string> node_queue;
   std::stack<std::string> node_stack;
   std::string start_id = GetID(location1_name);
+  std::string end_id = GetID(location2_name);
+  if(start_id == "" || end_id == ""){
+    return {};
+  }
   node_queue.push(start_id);
   d[start_id] = std::make_pair(0, "start");
   visited[start_id] = true;
@@ -274,7 +278,6 @@ std::vector<std::string> TrojanMap::CalculateShortestPath_Dijkstra(
     }
     node_queue.pop();
   }
-  std::string end_id = GetID(location2_name);
   std::string node_id;
   node_stack.push(end_id);
   while(node_id != start_id){
@@ -308,6 +311,10 @@ std::vector<std::string> TrojanMap::CalculateShortestPath_Bellman_Ford(
   std::stack<std::string> node_stack;
 
   std::string start_id = GetID(location1_name);
+  std::string end_id = GetID(location2_name);
+  if(start_id == "" || end_id == ""){
+    return {};
+  }
   d[start_id] = std::make_pair(0, "strat");
   for(long unsigned int i = 0; i < data.size(); i++){
     visited.clear();
@@ -342,7 +349,6 @@ std::vector<std::string> TrojanMap::CalculateShortestPath_Bellman_Ford(
     }
   }
 
-  std::string end_id = GetID(location2_name);
   std::string node_id;
   node_stack.push(end_id);
   while(node_id != start_id){
