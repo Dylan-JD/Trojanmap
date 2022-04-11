@@ -6,7 +6,7 @@ In this program, we have such data structures, the class Node and class Trojanma
 
 ## 2.Function Descriptions
 
-### 2.1.Auto complete
+### 2.1. Step 1: Autocomplete the location name
 #### 2.1.1.Detailed description
 ##### 1> Input and Return Value
 Input: the partial name of the location (std::string name)   
@@ -30,7 +30,7 @@ We need to traverse all nodes on the map and compare two strings.
 Time taken by function: 2 ms
 
 
-### 2.2.GetPosition
+### 2.2. Step 2-1: Find the place's Coordinates in the Map
 #### 2.2.1.Detailed description
 ##### 1> Input and Return Value
 First, the input of this fucntions is location name(std::string type) and the return value is the pair of (latitude, longitude)(std::pair<double, double> type).
@@ -45,11 +45,11 @@ Time taken by function: 0 ms
 #### 2.2.4 helper functions
 Under this step, we have created a lot of helper funtions to get the attributes of the node, Including GetLat, GetLon, GetName, GetNeighborIDs, GetID. Except GetID, the rest of them are all take ID of the node and return the node's attributes. I just use their id to index the node in data map, and return the attributes value of the node. For all of them we have checked if the id exists in the map. For these functions they only take O(1) to find the id in the map. While for GetID, it takes the location name and return ID, so we need to iterate the data map to find which node's name satisfy the requirement. So it would take O(N). So to avoid iteratint the map every time that we called the GetID. We create a unordered_map data structure called name_map, the key is name and the value is id. It will create when constructing the Trojan class objects. So our GetID function can index the name in O(1) time complexity.
 
-### 2.3.EditDistance
+### 2.3. Step 2-2: Check edit distance between two location names
 #### 2.3.1.Detailed description
 ##### 1> Input and Return Value
-Input: the partial name of the location (std::string name)   
-Return value: a list of possible locations with partial name as prefix (std::vector< std::string >)
+Input:      
+Return value:
 
 ##### 2> Boundary Conditions Check
 - If the input is empty, the function returns an empty.
