@@ -15,6 +15,7 @@ Return value: a list of possible locations with partial name as prefix (std::vec
 ##### 2> Boundary Conditions Check
 - If the input is empty, the function returns an empty.
 - If the input is not found, the function returns an empty and outputs "No matched locations."
+- Otherwise, the function returns a vector of names given a partial name.
 
 ##### 3> Implementation method
 
