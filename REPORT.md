@@ -103,7 +103,7 @@ If the input name is invalid, the function returns an empty vector.
 5) calculate the distance between this node and its parent node, then add the distance between its' parents and start point to get the new distance.
 6) For memo d
     -- if this key isn't initialized, use this distance to initialiaze. 
-    -- if this key is initialized
+    -- if this key is initialized.
         --- check if the new distance is less than the record, update it use new distance.
         --- if not, keep the record.
 7) find the node in unvisited map that has shortest distance between start point and itself.
@@ -120,7 +120,7 @@ If the input name is invalid, the function returns an empty vector.
 6) calculate the distance between this node and its parent node, then add the distance between its' parents and start point to get the new distance.
 7) (update edges)For memo d
     -- if this key isn't initialized, use this distance to initialiaze. 
-    -- if this key is initialized
+    -- if this key is initialized.
         --- check if the new distance is less than the record, update it use new distance.
         --- if not, keep the record.
 8) (early stop)check flag
@@ -131,17 +131,17 @@ If the input name is invalid, the function returns an empty vector.
 
 #### 2.4.2.Time Complexity Analysis
 - Dijkstra:
-    iterate ever node is O(n)
-    in ever iteration, we need to iterate every neighbor and unvisited map. So, it would be O(n^2)
-    push path into stack would be O(n) (the worse case)
-    push path into vector would be O(n) (the worse case)
+    iterate ever node is O(n).
+    in ever iteration, we need to iterate every neighbor and unvisited map. So, it would be O(n^2).
+    push path into stack would be O(n) (the worse case).
+    push path into vector would be O(n) (the worse case).
     So, Finally the Complexity for Dijkstra is O(n^2).
 
 - Bellman_Ford:
-    iterate every edges is O(m) (the worse case)
-    iterate ever node is O(n)
-    push path into stack would be O(n) (the worse case)
-    push path into vector would be O(n) (the worse case)
+    iterate every edges is O(m) (the worse case).
+    iterate ever node is O(n).
+    push path into stack would be O(n) (the worse case).
+    push path into vector would be O(n) (the worse case).
     So, Finally the Complexity for Dijkstra is O(m*n).
 
 #### 2.4.3.Time Spent
