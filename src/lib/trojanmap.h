@@ -113,7 +113,7 @@ class TrojanMap {
   
   void backTracking_helper(std::vector<std::string>& location_ids, 
                             std::pair<double, std::vector<std::vector<std::string>>> & records,
-                            int level, double& min_distance, std::vector<std::string>& min_ids);
+                            long unsigned int level, double& min_distance, std::vector<std::string>& min_ids);
 
   std::pair<double, std::vector<std::vector<std::string>>> TravellingTrojan_Backtracking(
       std::vector<std::string> location_ids);

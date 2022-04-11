@@ -271,7 +271,6 @@ std::vector<std::string> TrojanMap::CalculateShortestPath_Dijkstra(
     }
 
     if(min_node_id != "NULL" && visited.count(min_node_id) == 0){
-      std::cout<<min_node_id<<std::endl;
       visited[min_node_id] = true;
       unvisited_node.erase(min_node_id);
       node_queue.push(min_node_id);
@@ -404,7 +403,7 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTr
 
 void TrojanMap::backTracking_helper(std::vector<std::string>& location_ids, 
                                     std::pair<double, std::vector<std::vector<std::string>>> & records,
-                                    int level, double& min_distance, std::vector<std::string>& min_ids){
+                                    long unsigned int level, double& min_distance, std::vector<std::string>& min_ids){
   if(level == location_ids.size()){
     auto temp = location_ids;         // temp is added the the first id, to form a cycle
     temp.push_back(location_ids[0]);
@@ -422,7 +421,7 @@ void TrojanMap::backTracking_helper(std::vector<std::string>& location_ids,
     return ;
   }
   
-  for(int i = level; i < location_ids.size(); ++i){
+  for(long unsigned int i = level; i < location_ids.size(); ++i){
     swap(location_ids[i],location_ids[level]);
     backTracking_helper(location_ids,records,level+1, min_distance, min_ids);
     swap(location_ids[i],location_ids[level]);
