@@ -18,9 +18,9 @@ Return value: a list of possible locations with partial name as prefix (std::vec
 - Otherwise, the function returns a vector of names given a partial name.
 
 ##### 3> Implementation method
-1) Remove spaces (if exist) from the end of the input string
-2) 123
-3) 412 
+(1) Remove spaces (if exist) from the end of the input string
+(2) 123
+(3) 412 
 #### 2.1.2.Time Complexity Analysis
 
 #### 2.1.3.Time Spent
