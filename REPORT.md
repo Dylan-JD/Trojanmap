@@ -18,7 +18,7 @@ Return value: a list of possible locations with partial name as prefix (std::vec
 - Otherwise, the function returns a vector of names given a partial name.
 
 ##### 3> Implementation method
-1) Remove spaces (if exist) from the end of the input string
+1) Remove spaces (if exist) at the end of the input string
 2) Traverse all nodes on the map
 3) If the size of input is greater than the size of node’s name, we skip this node
 4) Covert two strings to the lower cases
@@ -88,3 +88,31 @@ Input: {std::string} location1_name: start, {std::string} location2_name: goal
 Return value: {std::vector<std::string>}: path
 
 ##### 2> Boundary Conditions Check
+- Dijkstra:
+If the input name is invalid, the function returns an empty vector.
+
+- Bellman_Ford:
+If the input name is invalid, the function returns an empty vector.
+
+##### 3> Implementation method
+- Dijkstra:
+1) Though GetID, get the id of starting point and ending point.
+2) initial the visited_map to keep every nodes' condition, the memo d to memrize the distance between each node and start node, the unvisited_map to keep all the unvisited node, a queue to help iterate through the neighbor, a stack to find shortest path.
+3) push start point into the queue and start iterate all the points.
+4) get the front point of the queue and then iterate all of unvisited neighbor of this node.
+5) calculate the distance between this node and its parent node.
+6) For memo d
+    -- if this key isn't initialized, use this distance to initialiaze. 
+    -- if this key is initialized
+        --- check if the new distance is less than the record, update it use new distance.
+        --- if not, keepp the record.
+7) find the node in unvisited map that has shortest distance between start point and itself.
+8) push this node into queue and update visited map and unvisited map.
+9) when finish iterating everynode, push the nodes in shortest path into stack through the record of their parent node id.
+10) then pop all the node from stack and push them into vector and return it.
+
+- Bellman_Ford:
+1) Though GetID, get the id of starting point and ending point.
+2) initial the visited_map to keep every nodes' condition, the memo d to memrize the distance between each node and start node, a queue to help iterate through the neighbor, a stack to find shortest path.
+3) iterate n-1 times to update every edges(can early stop). If the memo d isn't updated through one iteration, then stop the iterate.
+4)  
