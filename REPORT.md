@@ -151,3 +151,36 @@ Time taken by function: 1031 ms
 
 - Bellman_Ford:
 Time taken by function: 11674 ms
+
+### 2.5. Step 5: Cycle Detection
+#### 2.5.1.Detailed description
+##### 1> Input and Return Value
+- inSquare:
+Input: {std::string} id: location id
+       {std::vector<double>} square: four vertexes of the square area
+Return value: {bool}: in square or not
+
+- GetSubgraph: 
+Input: {std::vector<double>} square         : four vertexes of the square area
+Return value: {std::vector<std::string>} subgraph  : list of location ids in the square
+    
+- CycleDetection: 
+Input: {std::vector<std::string>} subgraph: list of location ids in the square.
+       {std::vector<double>} square: four vertexes of the square area.
+Return value: {bool}: whether there is a cycle or not.
+
+- CycleDetection_Helper: 
+Input: {std::string} node_id: the id of input node(in subgraph).
+       {std::string} parent_id: the id of input node's parent.
+       {std::vector<double>} square: four vertexes of the square area.
+       {std::unordered_map<std::string, bool> } visited: the memo to store whether the node has been visited
+Return value: {bool}: whether there is a cycle or not.
+    
+##### 2> Boundary Conditions Check
+If the square input is invaild which means (square[1] < square[0] || square[2] < square[3]), then return false.
+
+
+##### 3> Implementation method
+a. First I implement three helper function
+ 
+
