@@ -594,6 +594,9 @@ std::vector<std::string> TrojanMap::GetSubgraph(std::vector<double> &square) {
   // include all the nodes in subgraph
   std::vector<std::string> subgraph;
   std::unordered_map<std::string, Node>::iterator iter;
+  if(square[1] < square[0] || square[2] < square[3]){
+    return subgraph;
+  }
   iter = data.begin();
   while(iter != data.end()){
     if(inSquare(iter->second.id, square) == true){
