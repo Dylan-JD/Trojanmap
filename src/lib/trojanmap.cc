@@ -621,7 +621,6 @@ bool TrojanMap::CycleDetection(std::vector<std::string> &subgraph, std::vector<d
         return true;
       }
     }
-    std::cout<<visited[i]<<std::endl;
   }
   return false;
 }
@@ -637,14 +636,10 @@ bool TrojanMap::CycleDetection_Helper(std::string node_id, std::string parent_id
       if(inSquare(n, square) == true){
         if(visited.count(n) == 0){
           if(CycleDetection_Helper(n, node_id, square, visited) == true){
-              std::cout<<"if 1"<<std::endl;
               return true;
           }
         }
         else if(visited[n] == true){
-          std::cout<<"if 2"<<std::endl;
-          std::cout<<node_id<<std::endl;
-          std::cout<<n<<std::endl;
           return true;
         }
       }
