@@ -79,108 +79,108 @@ Time taken by function: 2 ms
 ### 2.4. Step 3: CalculateShortestPath between two places
 #### 2.4.1.Detailed description
 ##### 1> Input and Return Value
-- Dijkstra: Given 2 locations, return the shortest path which is a list of id.
-Input: {std::string} location1_name: start, {std::string} location2_name: goal
-Return value: {std::vector<std::string>}: path
+- Dijkstra: Given 2 locations, return the shortest path which is a list of id.  
+Input: {std::string} location1_name: start, {std::string} location2_name: goal  
+Return value: {std::vector<std::string>}: path  
 
-- Bellman_Ford: Given 2 locations, return the shortest path which is a list of id.
-Input: {std::string} location1_name: start, {std::string} location2_name: goal
-Return value: {std::vector<std::string>}: path
+- Bellman_Ford: Given 2 locations, return the shortest path which is a list of id.  
+Input: {std::string} location1_name: start, {std::string} location2_name: goal  
+Return value: {std::vector<std::string>}: path  
 
 ##### 2> Boundary Conditions Check
-- Dijkstra:
-If the input name is invalid, the function returns an empty vector.
+- Dijkstra:  
+If the input name is invalid, the function returns an empty vector.  
 
-- Bellman_Ford:
-If the input name is invalid, the function returns an empty vector.
+- Bellman_Ford:  
+If the input name is invalid, the function returns an empty vector.  
 
 ##### 3> Implementation method
-- Dijkstra:
-1) Though GetID, get the id of starting point and ending point.
-2) initial the visited_map to keep every nodes' condition, the memo d to memrize the distance between each node and start node, the unvisited_map to keep all the unvisited node, a queue to help iterate through the neighbor, a stack to find shortest path.
-3) push start point into the queue and start iterate all the points.
-4) get the front point of the queue and then iterate all of unvisited neighbor of this node.
-5) calculate the distance between this node and its parent node, then add the distance between its' parents and start point to get the new distance.
-6) For memo d
-    -- if this key isn't initialized, use this distance to initialiaze. 
-    -- if this key is initialized.
-        --- check if the new distance is less than the record, update it use new distance.
-        --- if not, keep the record.
-7) find the node in unvisited map that has shortest distance between start point and itself.
-8) push this node into queue and update visited map and unvisited map.
-9) when finish iterating everynode, push the nodes in shortest path into stack through the record of their parent node id.
-10) then pop all the node from stack and push them into vector and return it.
+- Dijkstra:  
+1) Though GetID, get the id of starting point and ending point.  
+2) initial the visited_map to keep every nodes' condition, the memo d to memrize the distance between each node and start node, the unvisited_map to keep all the   unvisited node, a queue to help iterate through the neighbor, a stack to find shortest path.  
+3) push start point into the queue and start iterate all the points.  
+4) get the front point of the queue and then iterate all of unvisited neighbor of this node.  
+5) calculate the distance between this node and its parent node, then add the distance between its' parents and start point to get the new distance.  
+6) For memo d  
+    -- if this key isn't initialized, use this distance to initialiaze.   
+    -- if this key is initialized.  
+        --- check if the new distance is less than the record, update it use new distance.  
+        --- if not, keep the record.  
+7) find the node in unvisited map that has shortest distance between start point and itself.  
+8) push this node into queue and update visited map and unvisited map.  
+9) when finish iterating everynode, push the nodes in shortest path into stack through the record of their parent node id.  
+10) then pop all the node from stack and push them into vector and return it.  
 
-- Bellman_Ford:
-1) Though GetID, get the id of starting point and ending point.
-2) initial the visited_map to keep every nodes' condition, the memo d to memrize the distance between each node and start node, a queue to help iterate through the neighbor, a stack to find shortest path.
-3) iterate n-1 times to update every edges(can early stop). If the memo d isn't updated through one iteration, then stop the iterating.(using flag to check if d updating.
-4) push start point into the queue and start iterate all the points.
-5) get the front point of the queue and then iterate all of unvisited neighbor of this node.
-6) calculate the distance between this node and its parent node, then add the distance between its' parents and start point to get the new distance.
-7) (update edges)For memo d
-    -- if this key isn't initialized, use this distance to initialiaze. 
-    -- if this key is initialized.
-        --- check if the new distance is less than the record, update it use new distance.
-        --- if not, keep the record.
-8) (early stop)check flag
-    --if d is updated, then continue iterating
-    --else d isn't updated, break.
-9) when finish relaxing every edges, push the nodes in shortest path into stack through the record of their parent node id.
-10) then pop all the node from stack and push them into vector and return it.
+- Bellman_Ford:  
+1) Though GetID, get the id of starting point and ending point.  
+2) initial the visited_map to keep every nodes' condition, the memo d to memrize the distance between each node and start node, a queue to help iterate through the neighbor, a stack to find shortest path.  
+3) iterate n-1 times to update every edges(can early stop). If the memo d isn't updated through one iteration, then stop the iterating.(using flag to check if d updating.  
+4) push start point into the queue and start iterate all the points.  
+5) get the front point of the queue and then iterate all of unvisited neighbor of this node.  
+6) calculate the distance between this node and its parent node, then add the distance between its' parents and start point to get the new distance.  
+7) (update edges)For memo d  
+    -- if this key isn't initialized, use this distance to initialiaze.   
+    -- if this key is initialized.  
+        --- check if the new distance is less than the record, update it use new distance.  
+        --- if not, keep the record.  
+8) (early stop)check flag  
+    --if d is updated, then continue iterating  
+    --else d isn't updated, break.  
+9) when finish relaxing every edges, push the nodes in shortest path into stack through the record of their parent node id.  
+10) then pop all the node from stack and push them into vector and return it.  
 
 #### 2.4.2.Time Complexity Analysis
-- Dijkstra:
-    iterate ever node is O(n).
-    in ever iteration, we need to iterate every neighbor and unvisited map. So, it would be O(n^2).
-    push path into stack would be O(n) (the worse case).
-    push path into vector would be O(n) (the worse case).
-    So, Finally the Complexity for Dijkstra is O(n^2).
+- Dijkstra:  
+    iterate ever node is O(n).  
+    in ever iteration, we need to iterate every neighbor and unvisited map. So, it would be O(n^2).  
+    push path into stack would be O(n) (the worse case).  
+    push path into vector would be O(n) (the worse case).  
+    So, Finally the Complexity for Dijkstra is O(n^2).  
 
-- Bellman_Ford:
-    iterate every edges is O(m) (the worse case).
-    iterate ever node is O(n).
-    push path into stack would be O(n) (the worse case).
-    push path into vector would be O(n) (the worse case).
-    So, Finally the Complexity for Dijkstra is O(m*n).
+- Bellman_Ford:  
+    iterate every edges is O(m) (the worse case).  
+    iterate ever node is O(n).  
+    push path into stack would be O(n) (the worse case).  
+    push path into vector would be O(n) (the worse case).  
+    So, Finally the Complexity for Dijkstra is O(m*n).  
 
 #### 2.4.3.Time Spent
-If I choose Ralphs as my starting point, Chick-fil-A as my ending point.
-- Dijkstra:
-Time taken by function: 1031 ms
+If I choose Ralphs as my starting point, Chick-fil-A as my ending point.  
+- Dijkstra:  
+Time taken by function: 1031 ms  
 
-- Bellman_Ford:
-Time taken by function: 11674 ms
+- Bellman_Ford:  
+Time taken by function: 11674 ms  
 
 ### 2.5. Step 5: Cycle Detection
 #### 2.5.1.Detailed description
 ##### 1> Input and Return Value
-- inSquare:
-Input: {std::string} id: location id
-       {std::vector<double>} square: four vertexes of the square area
-Return value: {bool}: in square or not
+- inSquare:  
+Input: {std::string} id: location id   
+       {std::vector<double>} square: four vertexes of the square area  
+Return value: {bool}: in square or not  
 
 - GetSubgraph: 
-Input: {std::vector<double>} square         : four vertexes of the square area
-Return value: {std::vector<std::string>} subgraph  : list of location ids in the square
+Input: {std::vector<double>} square: four vertexes of the square area  
+Return value: {std::vector<std::string>} subgraph  : list of location ids in the square  
     
 - CycleDetection: 
-Input: {std::vector<std::string>} subgraph: list of location ids in the square.
-       {std::vector<double>} square: four vertexes of the square area.
-Return value: {bool}: whether there is a cycle or not.
+Input: {std::vector<std::string>} subgraph: list of location ids in the square.  
+       {std::vector<double>} square: four vertexes of the square area.  
+Return value: {bool}: whether there is a cycle or not.  
 
 - CycleDetection_Helper: 
-Input: {std::string} node_id: the id of input node(in subgraph).
-       {std::string} parent_id: the id of input node's parent.
-       {std::vector<double>} square: four vertexes of the square area.
-       {std::unordered_map<std::string, bool> } visited: the memo to store whether the node has been visited
-Return value: {bool}: whether there is a cycle or not.
+Input: {std::string} node_id: the id of input node(in subgraph).  
+       {std::string} parent_id: the id of input node's parent.  
+       {std::vector<double>} square: four vertexes of the square area.  
+       {std::unordered_map<std::string, bool> } visited: the memo to store whether the node has been visited  
+Return value: {bool}: whether there is a cycle or not.  
     
-##### 2> Boundary Conditions Check
-If the square input is invaild which means (square[1] < square[0] || square[2] < square[3]), then return false.
+##### 2> Boundary Conditions Check  
+If the square input is invaild which means (square[1] < square[0] || square[2] < square[3]), then return false.  
 
 
-##### 3> Implementation method
-a. First I implement three helper function
+##### 3> Implementation method  
+a. First I implement three helper function  
  
 
