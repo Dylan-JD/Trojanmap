@@ -117,8 +117,20 @@ TEST(TrojanMapStudentTest, TopologicalSort) {
   std::vector<std::vector<std::string>> dependencies3 = {{"Ralphs","KFC"}, {"Ralphs","Chick-fil-A"}, 
                                                         {"Chick-fil-A", "KFC"}, {"KFC", "Arco"}, {"Arco", "Trojan Grounds (Starbucks)"}};
   auto result3 = m.DeliveringTrojan(location_names2, dependencies3);
-   std::vector<std::string> gt3 = {"Ralphs", "Chick-fil-A", "KFC", "Arco", "Trojan Grounds (Starbucks)"};
+  std::vector<std::string> gt3 = {"Ralphs", "Chick-fil-A", "KFC", "Arco", "Trojan Grounds (Starbucks)"};
   EXPECT_EQ(result3, gt3);
+  std::vector<std::string> empty;
+  std::vector<std::vector<std::string>> empty_dependencies;
+  auto result4 = m.DeliveringTrojan(empty, dependencies3);
+  std::vector<std::string> gt4;
+  EXPECT_EQ(result4, gt4);
+  auto result5 = m.DeliveringTrojan(location_names2, empty_dependencies);
+  std::vector<std::string> gt5 = {"Trojan Grounds (Starbucks)", "Arco", "KFC", "Chick-fil-A", "Ralphs"};
+  EXPECT_EQ(result5, gt5);
+  auto result6 = m.DeliveringTrojan(empty, empty_dependencies);
+  EXPECT_EQ(result6, gt4);
+  auto result7 = m.DeliveringTrojan(location_names, dependencies3);
+  EXPECT_EQ(result7, gt4);
 }
 
 
