@@ -217,10 +217,10 @@ Return value: {bool}: whether there is a cycle or not.
        if all the nodes in subgraph has been visited and there is no circle, return false.
  
 #### 2.5.2.Time Complexity Analysis
-- inSquare:  
+- inSquare:   
     all the operation is O(1), so this function's time complexity is O(1).
 
-- GetSubgraph: 
+- GetSubgraph:  
     iterate the map should take O(n), so this function's time complexity is O(n).
 
 - CycleDetection:  
@@ -240,12 +240,18 @@ If I choose {-118.299, -118.264, 34.032, 34.011} as my square input.
 ### 2.6. Step 6: Topological Sort
 #### 2.6.1.Detailed description
 ##### 1> Input and Return Value
-    - DeliveringTrojan
+    - ReadLocationsFromCSVFile:  
+    Input: {std::string} locations_filename: locations_filename
+    Return value: {std::vector<std::string>}: locations 
+    - ReadDependenciesFromCSVFile:  
+    Input: {std::string} dependencies_filename: dependencies_filename
+    Return value: {std::vector<std::vector<std::string>>}: dependencies
+    - DeliveringTrojan:  
     Input: {std::vector<std::string>} locations: locations, 
     {std::vector<std::vector<std::string>>} dependencies: prerequisites  
     Return value: {std::vector<std::string>} results: results
 #### 2.6.3.Time Spent
-    - DeliveringTrojan
+    - DeliveringTrojan:  
     if I choose locations Ralphs, KFC, Chick-fil-A  
     if I choose dependence {Ralphs,Chick-fil-A}, {Ralphs,KFC}, {Chick-fil-A,KFC}  
     Time taken by function: 0 ms
