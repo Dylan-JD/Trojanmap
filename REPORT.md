@@ -240,18 +240,18 @@ If I choose {-118.299, -118.264, 34.032, 34.011} as my square input.
 ### 2.6. Step 6: Topological Sort
 #### 2.6.1.Detailed description
 ##### 1> Input and Return Value
-    - ReadLocationsFromCSVFile:  
+- ReadLocationsFromCSVFile:  
     Input: {std::string} locations_filename: locations_filename
     Return value: {std::vector<std::string>}: locations 
-    - ReadDependenciesFromCSVFile:  
+- ReadDependenciesFromCSVFile:  
     Input: {std::string} dependencies_filename: dependencies_filename
     Return value: {std::vector<std::vector<std::string>>}: dependencies
-    - DeliveringTrojan:  
+- DeliveringTrojan:  
     Input: {std::vector<std::string>} locations: locations, 
     {std::vector<std::vector<std::string>>} dependencies: prerequisites  
     Return value: {std::vector<std::string>} results: results
 #### 2.6.3.Time Spent
-    - DeliveringTrojan:  
+- DeliveringTrojan:  
     if I choose locations Ralphs, KFC, Chick-fil-A  
     if I choose dependence {Ralphs,Chick-fil-A}, {Ralphs,KFC}, {Chick-fil-A,KFC}  
     Time taken by function: 0 ms
