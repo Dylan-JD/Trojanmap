@@ -569,6 +569,12 @@ bool TrojanMap::inSquare(std::string id, std::vector<double> &square) {
   if(lat == -1 && lon == -1){
     return false;
   }
+  if(square.size() < 4){
+    return false;
+  }
+  if(square[1] < square[0] || square[2] < square[3]){
+    return false;
+  }
   if(lon < square[0]){
     return false;
   }
@@ -594,6 +600,9 @@ std::vector<std::string> TrojanMap::GetSubgraph(std::vector<double> &square) {
   // include all the nodes in subgraph
   std::vector<std::string> subgraph;
   std::unordered_map<std::string, Node>::iterator iter;
+  if(square.size() < 4){
+    return subgraph;
+  }
   if(square[1] < square[0] || square[2] < square[3]){
     return subgraph;
   }
@@ -618,6 +627,12 @@ std::vector<std::string> TrojanMap::GetSubgraph(std::vector<double> &square) {
 bool TrojanMap::CycleDetection(std::vector<std::string> &subgraph, std::vector<double> &square) {
   /*visited map: didn't exsited key means unvisited, true means visiting, false means visited*/
   std::unordered_map<std::string, bool> visited;
+  if(square.size() < 4){
+    return false;
+  }
+  if(square[1] < square[0] || square[2] < square[3]){
+    return false;
+  }
   for(auto i : subgraph){
     if(visited.count(i) == 0){
       if (CycleDetection_Helper(i, "-1", square, visited) == true){
