@@ -156,31 +156,83 @@ Time taken by function: 11674 ms
 #### 2.5.1.Detailed description
 ##### 1> Input and Return Value
 - inSquare:  
-Input: {std::string} id: location id   
+Input: {std::string} id: location id,
        {std::vector<double>} square: four vertexes of the square area  
 Return value: {bool}: in square or not  
 
-- GetSubgraph: 
+- GetSubgraph:  
 Input: {std::vector<double>} square: four vertexes of the square area  
 Return value: {std::vector<std::string>} subgraph  : list of location ids in the square  
     
-- CycleDetection: 
-Input: {std::vector<std::string>} subgraph: list of location ids in the square.  
+- CycleDetection:  
+Input: {std::vector<std::string>} subgraph: list of location ids in the square,
        {std::vector<double>} square: four vertexes of the square area.  
 Return value: {bool}: whether there is a cycle or not.  
 
-- CycleDetection_Helper: 
-Input: {std::string} node_id: the id of input node(in subgraph).  
-       {std::string} parent_id: the id of input node's parent.  
-       {std::vector<double>} square: four vertexes of the square area.  
+- CycleDetection_Helper:  
+Input: {std::string} node_id: the id of input node(in subgraph),
+       {std::string} parent_id: the id of input node's parent,
+       {std::vector<double>} square: four vertexes of the square area,
        {std::unordered_map<std::string, bool> } visited: the memo to store whether the node has been visited  
 Return value: {bool}: whether there is a cycle or not.  
     
 ##### 2> Boundary Conditions Check  
-If the square input is invaild which means (square[1] < square[0] || square[2] < square[3]), then return false.  
+- inSquare:  
+    If the id in invaild, then return false.
+    If the square input is invaild, then return false.  
+    
+- GetSubgraph:  
+    If the square input is invaild, then return empty vector.  
+
+- CycleDetection:  
+    If the square input is invaild, then return false. 
+
+- CycleDetection_Helper:  
+    all the input is input by myself, so there wouldn't any invaild input.
 
 
 ##### 3> Implementation method  
-a. First I implement three helper function  
- 
+- inSquare:  
+    1) get the latitude and longtitude using its id.
+    2) check if the position is in the input ranges.  
 
+- GetSubgraph:  
+    1) iterate all the node in the data map.
+    2) check if it is in the square that input.  
+
+- CycleDetection:  
+    1) check if the input is valid
+    2) call the CycleDetection_Helper function.
+   
+- CycleDetection_Helper:I used recursive dfs to find the cycle.  
+    1) mark this node as visiting.
+    2) find all the neighbors of input node that in the square.
+    3) iterate all the neighbors.  
+        -- if this neighbor is unvisited
+            --- call the CycleDetection_Helper recursivly
+        -- else if it is visiting
+            ---it shows that this is a circle, then return true
+    4) when finished this node's searching, mark this node as visited
+    5) if there is a circle, return true
+       if all the nodes in subgraph has been visited and there is no circle, return false.
+ 
+#### 2.5.2.Time Complexity Analysis
+- inSquare:  
+    all the operation is O(1), so this function's time complexity is O(1).
+
+- GetSubgraph: 
+    iterate the map should take O(n), so this function's time complexity is O(n).
+
+- CycleDetection:  
+    iterate all the node use O(n)  
+    iterate all the edge use O(m)  
+    so this function's time complexity is O(m+n).
+    
+- CycleDetection_Helper:  
+    iterate all the neighbor and edges use O(m+n)  
+    so this function's time complexity is O(m+n).
+
+#### 2.5.3.Time Spent
+If I choose {-118.299, -118.264, 34.032, 34.011} as my square input.  
+    - CycleDetection: 
+    Time taken by function: 0 ms
