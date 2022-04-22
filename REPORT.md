@@ -241,15 +241,52 @@ If I choose {-118.299, -118.264, 34.032, 34.011} as my square input.
 #### 2.6.1.Detailed description
 ##### 1> Input and Return Value
 - ReadLocationsFromCSVFile:  
-    Input: {std::string} locations_filename: locations_filename
+    Input: {std::string} locations_filename: locations_filename  
     Return value: {std::vector<std::string>}: locations 
 - ReadDependenciesFromCSVFile:  
-    Input: {std::string} dependencies_filename: dependencies_filename
+    Input: {std::string} dependencies_filename: dependencies_filename  
     Return value: {std::vector<std::vector<std::string>>}: dependencies
 - DeliveringTrojan:  
     Input: {std::vector<std::string>} locations: locations, 
     {std::vector<std::vector<std::string>>} dependencies: prerequisites  
     Return value: {std::vector<std::string>} results: results
+
+##### 2> Boundary Conditions Check  
+- ReadLocationsFromCSVFile:  
+    If the file address is invaild, then return empty vector  
+- ReadDependenciesFromCSVFile:  
+    If the file address is invaild, then return empty vector  
+- DeliveringTrojan:  
+    If the location is empty, it will return empty vector.  
+    If the dependence is empty, it will return a reversed vector of location vectors.  
+    If the location sites contain some place that depencence don't have, the output would reverse location first, then put the place that dependency don't have in the first, and then follow the dependence.  
+    If the dependency contains some place that location don't have, if will return empty vector.  
+
+##### 3> Implementation method  
+- ReadLocationsFromCSVFile:
+    Read CVS contents row by row and each row is pushed separately into the vector.
+- ReadDependenciesFromCSVFile:  
+    Read CVS contents row by row, each row is seperated by comma to construct a new vector and then push this new vector separately into the final vector.
+- DeliveringTrojan:  
+    1) construct DAG.  
+    2) construct indegree form.  
+    3) push all of the node which indegree = 0 into the bfs queue.  
+    4) iterate all the neighbor, and for each neighbor, their indegree minus 1.  
+    5) push all the new node that indegree = 0 into bfs queue after previews node iteration finish.
+    6) if resulte size equal to locations size shows that the dependence can be followed, then renturn the result.  
+       else return empty vector. 
+
+#### 2.6.2.Time Complexity Analysis
+- ReadLocationsFromCSVFile:
+    iterate all the line using O(n), so the time comlpexity for this function is O(n).  
+- ReadDependenciesFromCSVFile:
+    iterate all the line using O(n), for each line is m, so the time comlpexity for this function is O(nm).  
+- DeliveringTrojan:  
+    Construct DAG using O(n)
+    Construct indegree form using O(n^2)  
+    bfs takes O(n^2)  
+    so the time comlpexity for this function is O(n^2).  
+    
 #### 2.6.3.Time Spent
 - DeliveringTrojan:  
     if I choose locations Ralphs, KFC, Chick-fil-A  
