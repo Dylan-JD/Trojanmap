@@ -443,6 +443,40 @@ std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTr
 std::pair<double, std::vector<std::vector<std::string>>> TrojanMap::TravellingTrojan_2opt(
       std::vector<std::string> location_ids){
   std::pair<double, std::vector<std::vector<std::string>>> records;
+  bool sign = 1; // 1: true, improvement, 0: false, no improvement
+  std::vector<std::string> existing_route = location_ids;
+
+  auto temp = existing_route;            // temp is added the the first id, to form a cycle
+  temp.push_back(existing_route[0]);
+  double min_distance = CalculatePathLength(temp);
+  std::vector<std::string> min_ids = temp;
+
+  do{
+    sign = 0;
+    for(long unsigned int i = 1; i < existing_route.size()-1; ++i){
+      for(long unsigned int k = i + 1; k < existing_route.size(); ++k){
+        auto new_route = existing_route;
+        reverse(new_route.begin()+i,new_route.begin()+k+1);
+
+        auto temp = new_route;            // temp is added the the first id, to form a cycle
+        temp.push_back(new_route[0]);
+        double new_distance = CalculatePathLength(temp);
+
+        if(min_distance > new_distance ){
+          sign = 1;
+          records.second.push_back(min_ids);
+          min_distance = new_distance;
+          min_ids = temp;
+          existing_route = new_route;
+        }else{
+          records.second.push_back(temp);
+        }
+      }
+    }
+  }while(sign);
+
+  records.first = min_distance;
+  records.second.push_back(min_ids);
   return records;
 }
 
@@ -678,6 +712,36 @@ bool TrojanMap::CycleDetection_Helper(std::string node_id, std::string parent_id
  */
 std::vector<std::string> TrojanMap::FindNearby(std::string attributesName, std::string name, double r, int k) {
   std::vector<std::string> res;
+  if(attributesName.empty() || name.empty() || r <= 0 || k <= 0) return res;
+  std::string target_id = GetID(name);
+
+  auto cmp = [](const std::pair<std::string, double> &a, const std::pair<std::string, double> &b) {
+  return a.second > b.second;//greater
+	};
+	std::priority_queue<std::pair<std::string, double>, std::vector<std::pair<std::string, double>>, decltype(cmp)> pri_que (cmp);
+
+  std::unordered_map<std::string, Node>::iterator iter;
+  iter = data.begin();
+  while(iter != data.end()){
+    auto curr_name = iter->second.name;
+    std::unordered_set<std::string> curr_attribute = iter->second.attributes;
+    if(curr_attribute.count(attributesName) != 0 && curr_name != name){
+      std::string curr_id = GetID(curr_name);
+      double distance = CalculateDistance(curr_id,target_id);
+      if(distance <= r){
+        pri_que.push({curr_id, distance});
+      }
+      
+    }
+    iter++;
+  }
+
+  std::cout<<"pri_que size: "<<pri_que.size()<<std::endl;
+  while(!pri_que.empty() && k > 0){
+    res.push_back(pri_que.top().first);
+    pri_que.pop();
+    --k;
+  }
   return res;
 }
 
