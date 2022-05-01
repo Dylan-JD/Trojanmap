@@ -327,11 +327,10 @@ Return value: {std::pair<double, std::vector<std::vector<std::string>>} : a pair
 - else returns a pair of minimum distance and the all the progress to get final path  
 
 ##### 3> Implementation method
-FindClosestName():
-1) Traverse all nodes on the map
-2) If name is not empty, calculate its edit distance from the input name.
-3) If the distance is less than the minimum edit distance, update the min_distance.
-4) return min_distance.
+TravellingTrojan_Brute_force():
+1) Implemented by back tracking algorithm.
+2) In each recursion, we traverse all locations.
+3) 231
 
 CalculateEditDistance():
 1) Implemented by dynamic programming
