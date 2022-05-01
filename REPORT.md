@@ -314,4 +314,34 @@ If I choose {-118.299, -118.264, 34.032, 34.011} as my square input.
 #### 2.6.4. Result
 ![image](https://user-images.githubusercontent.com/97215161/166130238-1f1b45b7-bff4-4f8b-a803-9cc5cd136261.png)
 
+### 2.7. Step 4: The Travelling Trojan Problem (AKA Travelling Salesman!)
+#### 2.7.1.Detailed description
+##### 1> Input and Return Value
+- TravellingTrojan_Brute_force(), TravellingTrojan_Backtracking(), and TravellingTrojan_2opt():   
+Input: {std::vector<std::string>} input : a list of locations needs to visit   
+Return value: {std::pair<double, std::vector<std::vector<std::string>>} : a pair of total distance and the all the progress to get final path  
+
+##### 2> Boundary Conditions Check
+- If the input is empty, the function returns an empty.
+- If the input size is 1, the function returns records which the first is 0, the second is the input id.
+- else returns a pair of minimum distance and the all the progress to get final path  
+
+##### 3> Implementation method
+FindClosestName():
+1) Traverse all nodes on the map
+2) If name is not empty, calculate its edit distance from the input name.
+3) If the distance is less than the minimum edit distance, update the min_distance.
+4) return min_distance.
+
+CalculateEditDistance():
+1) Implemented by dynamic programming
+2) if the ith char of name a == the jth char of name b, dp[i][j] = 1 + std::min(dp[i-1][j-1]-1, std::min(dp[i-1][j], dp[i][j-1]));
+3) else dp[i][j] = 1 + std::min(dp[i-1][j-1], std::min(dp[i-1][j], dp[i][j-1]));
+
+#### 2.7.2.Time Complexity Analysis
+O(n*a*b), n: the size of data, a: the length of input name a, b: the length of input name b.  
+We need to traverse all nodes on the data and compute edit distance from the target name. Computing edit distance: traverse every element in both a and b.  
+
+#### 2.7.3.Time Spent
+Time taken by function: 0 ms
 
