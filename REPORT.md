@@ -85,6 +85,7 @@ CalculateEditDistance():
 
 #### 2.3.2.Time Complexity Analysis
 O(n*a*b), n: the size of data, a: the length of input name a, b: the length of input name b.  
+We need to traverse all nodes on the data and compute edit distance from the target name. Computing edit distance: traverse every element in both a and b.  
 
 #### 2.3.3.Time Spent
 Time taken by function: 0 ms
