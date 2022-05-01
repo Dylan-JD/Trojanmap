@@ -334,10 +334,14 @@ TravellingTrojan_Brute_force():
 4) After calling the backTracking function, we remove the location from the curr_path.
 5) If the curr_path size equals the input size and curr_cost is less than min_cost, we update min_cost and add the curr_path to the result. 
 
-CalculateEditDistance():
-1) Implemented by dynamic programming
-2) if the ith char of name a == the jth char of name b, dp[i][j] = 1 + std::min(dp[i-1][j-1]-1, std::min(dp[i-1][j], dp[i][j-1]));
-3) else dp[i][j] = 1 + std::min(dp[i-1][j-1], std::min(dp[i-1][j], dp[i][j-1]));
+TravellingTrojan_Backtracking():
+1) Same as Brute Force, also implemented by dynamic programming.
+2) The difference is that when the cur_cost >= min_cose we early stop the this recursiong and return.
+
+TravellingTrojan_2opt():
+1) We use two loops to obtain a sub part in location ids vector and reverse this sub part.
+2) If the updated cur_cost is smaller, we go back to start again.
+3) Repeat until no improvement.
 
 #### 2.7.2.Time Complexity Analysis
 O(n*a*b), n: the size of data, a: the length of input name a, b: the length of input name b.  
