@@ -84,10 +84,10 @@ CalculateEditDistance():
 3) else dp[i][j] = 1 + std::min(dp[i-1][j-1], std::min(dp[i-1][j], dp[i][j-1]));
 
 #### 2.3.2.Time Complexity Analysis
-O(n*m), n is the length of input name, m is the size of data.  
-We need to traverse all nodes on the map and compare two strings.
+O(n*a*b), n: the size of data, a: the length of input name a, b: the length of input name b.  
+
 #### 2.3.3.Time Spent
-Time taken by function: 2 ms
+Time taken by function: 0 ms
 
 ### 2.4. Step 3: CalculateShortestPath between two places
 #### 2.4.1.Detailed description
