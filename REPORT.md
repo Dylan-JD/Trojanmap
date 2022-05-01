@@ -154,15 +154,13 @@ If the input name is invalid, the function returns an empty vector.
 
 #### 2.4.3.Time Spent
 The First row is starting point - destination, the second row is the runtime of Dijkstra, the third row is the runtime of Bellman_Ford   
-<div align=center>
 ![image](https://user-images.githubusercontent.com/97215161/166129229-5018360c-c8ff-48f5-ace4-6874cb7b3ca7.png)
-</div>
+
 
 #### 2.4.4.result
 From leavey library to Proto Homes LLC
-<div align=center>
 ![image](https://user-images.githubusercontent.com/97215161/166129298-d88d089f-1173-4761-a2b1-30d42e7e4668.png)
-</div>
+
 
 ### 2.5. Step 5: Cycle Detection
 #### 2.5.1.Detailed description
@@ -249,13 +247,6 @@ If I choose {-118.299, -118.264, 34.032, 34.011} as my square input.
     - CycleDetection: 
     Time taken by function: 0 ms
     
-#### 2.5.4.Result
-- dose not exist cycle
-<div align=center>
-![image](https://user-images.githubusercontent.com/97215161/166129355-789bfe52-309f-4e6a-a7a9-9f544b66cce2.png)
-</div>
-
-    
     
 ### 2.6. Step 6: Topological Sort
 #### 2.6.1.Detailed description
@@ -310,7 +301,11 @@ If I choose {-118.299, -118.264, 34.032, 34.011} as my square input.
     
 #### 2.6.3.Time Spent
 - DeliveringTrojan:  
-    if I choose locations Ralphs, KFC, Chick-fil-A  
-    if I choose dependence {Ralphs,Chick-fil-A}, {Ralphs,KFC}, {Chick-fil-A,KFC}  
+    if I choose locations Ralphs, KFC, Chick-fil-A, Arco, Leavey Library, Subway 1, Adams Normandie Historic District, Honda, Main & Pico, Security Checkpoint  
+    if I choose dependence {Ralphs,Chick-fil-A} {Ralphs,KFC} {Chick-fil-A,KFC} {KFC,Arco} {Arco,Leavey Library} {Leavey Library,Subway 1} {Subway 1,Adams Normandie Historic District} {Adams Normandie Historic District,Honda} {Honda,Main & Pico} {Main & Pico,Security Checkpoint}
     Time taken by function: 0 ms
-    
+
+#### 2.6.4. Result
+![image](https://user-images.githubusercontent.com/97215161/166130238-1f1b45b7-bff4-4f8b-a803-9cc5cd136261.png)
+
+
