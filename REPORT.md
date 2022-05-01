@@ -33,20 +33,28 @@ Time taken by function: 2 ms
 ### 2.2. Step 2-1: Find the place's Coordinates in the Map
 #### 2.2.1.Detailed description
 ##### 1> Input and Return Value
-First, the input of this fucntions is location name(std::string type) and the return value is the pair of (latitude, longitude)(std::pair<double, double> type).
+Input: {std::string} name: location name   
+Return value: {std::pair<double,double>} (lat, lon): the pair of (latitude, longitude)   
 ##### 2> Boundary Conditions Check
-In this function, the input is location name, so we need to check if the location name exists. So we check the return value of GetID to check if the input value is correct. If it isn't correct, the function would return (-1, -1).
+- If the location name does not exist, the function returns  (-1, -1).   
 ##### 3> Implementation method
 For this function, I used data maps and a helper function. Because the input value is location name but the key of data map is id, so  
 1) first, I call the GetID function to get the id through the location name. 
 2) Then, I use id as the index to get the node. Through the attribute in the node we can get latitude and longitude of this location name. 
 3) Then return the pair of (latitude, longitude) as the return value of this function.
 #### 2.2.2.Time Complexity Analysis
-For this function, the helper function GetID contribute the main run time comlplexity. The complexity for GetID is the complexity of searching the key in a unordered_map, it is O(1), and the other operation of GetPosition is constant time complexity, so the time complexity is O(1).
+For this function, the helper function GetID contribute the main run time comlplexity.    
+The complexity for GetID is the complexity of searching the key in a unordered_map, it is O(1) because we have create a unordered_map data structure called name_map, the key is name and the value is ID    
+and the other operation of GetPosition is constant time complexity, so the time complexity is O(1).
 #### 2.2.3.Time Spent
 Time taken by function: 0 ms
 #### 2.2.4 helper functions
-Under this step, we have created a lot of helper funtions to get the attributes of the node, Including GetLat, GetLon, GetName, GetNeighborIDs, GetID. Except GetID, the rest of them are all take ID of the node and return the node's attributes. I just use their id to index the node in data map, and return the attributes value of the node. For all of them we have checked if the id exists in the map. For these functions they only take O(1) to find the id in the map. While for GetID, it takes the location name and return ID, so we need to iterate the data map to find which node's name satisfy the requirement. So it would take O(N). So to avoid iteratint the map every time that we called the GetID. We create a unordered_map data structure called name_map, the key is name and the value is id. It will create when constructing the Trojan class objects. So our GetID function can index the name in O(1) time complexity.
+Under this step, we have created a lot of helper funtions to get the attributes of the node, Including GetLat, GetLon, GetName, GetNeighborIDs, GetID.   
+Except GetID, the rest of them are all take ID of the node and return the node's attributes. I just use their id to index the node in data map, and return the attributes value of the node.   
+For all of them we have checked if the id exists in the map. For these functions they only take O(1) to find the id in the map. While for GetID, it takes the location name and return ID, so we need to iterate the data map to find which node's name satisfy the requirement. So it would take O(N).   
+So to avoid iteratint the map every time that we called the GetID. We create a unordered_map data structure called name_map, the key is name and the value is id. It will create when constructing the Trojan class objects. So our GetID function can index the name in O(1) time complexity.
+#### 2.2.5 result
+
 
 ### 2.3. Step 2-2: Check edit distance between two location names
 #### 2.3.1.Detailed description
@@ -145,7 +153,16 @@ If the input name is invalid, the function returns an empty vector.
     So, Finally the Complexity for Dijkstra is O(m*n).  
 
 #### 2.4.3.Time Spent
+The First row is starting ppoint - destination, the second row is the runtime of Dijkstra, the third row is the runtime of Bellman_Ford   
 If I choose Ralphs as my starting point, Chick-fil-A as my ending point.  
+experiment	Dijkstra	Bellman_Ford
+Ralphs- Leavey Library	928ms	11461ms
+Leavey Library - Proto Homes	1123ms	17537ms
+Lyons Center - PED	978ms	15055ms
+USC Parking - Safety Pole	1058ms	17973ms
+Best Donuts - Subway 1	701ms	24118ms
+![image](https://user-images.githubusercontent.com/97215161/166129148-c934ccab-688b-40b2-93c6-6de1af52dbfd.png)
+
 - Dijkstra:  
 Time taken by function: 1031 ms  
 
