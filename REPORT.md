@@ -330,7 +330,9 @@ Return value: {std::pair<double, std::vector<std::vector<std::string>>} : a pair
 TravellingTrojan_Brute_force():
 1) Implemented by back tracking algorithm.
 2) In each recursion, we traverse all locations.
-3) 231
+3) If current locaiton is not visited, add it to curr_path and update curr_cost.
+4) After calling the backTracking function, we remove the location from the curr_path.
+5) If the curr_path size equals the input size and curr_cost is less than min_cost, we update min_cost and add the curr_path to the result. 
 
 CalculateEditDistance():
 1) Implemented by dynamic programming
