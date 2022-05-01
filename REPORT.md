@@ -344,9 +344,11 @@ TravellingTrojan_2opt():
 3) Repeat until no improvement.
 
 #### 2.7.2.Time Complexity Analysis
-O(n*a*b), n: the size of data, a: the length of input name a, b: the length of input name b.  
-We need to traverse all nodes on the data and compute edit distance from the target name. Computing edit distance: traverse every element in both a and b.  
+TravellingTrojan_Brute_force(): O(n!)   
+TravellingTrojan_Backtracking(): O(n!)   
+TravellingTrojan_2opt(): O(n^2)  
 
 #### 2.7.3.Time Spent
-Time taken by function: 0 ms
+![image](https://user-images.githubusercontent.com/85814736/166167574-65c0fce6-280e-4f8d-8750-664c98e277a7.png)
+
 
