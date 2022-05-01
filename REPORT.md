@@ -1,8 +1,10 @@
 # EE538 Final Project - Spring 2022 - TrojanMap
 Students: Jian Dong, Zi Yan
 ## 1.Overview
-In this program, we have such data structures, the class Node and class Trojanmap. The attributes is shown as below diagram.
+In this program, we have such data structures, the class Node and class Trojanmap. The attributes of node is shown as below diagram.
 ![node_attributes](https://user-images.githubusercontent.com/97215161/162642443-c03728f6-7356-4945-baae-0d44264eb178.jpg)
+The method of trojanmap is shown as below diagram.
+![image](https://user-images.githubusercontent.com/97215161/166167619-e13af03f-b610-47ae-ae33-f0cbf654c520.png)
 
 ## 2.Function Descriptions
 
