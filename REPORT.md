@@ -357,27 +357,28 @@ TravellingTrojan_2opt(): O(n^2)
 #### 2.8.1.Detailed description
 ##### 1> Input and Return Value
 Input:   
-        {std::string} className: the name of the class  
-        {std::string} locationName: the name of the location  
+        {std::string} attributesName: the attribute name   
+        {std::string} name: the name of the location  
         {int} r: search radius  
         {int} k: search numbers  
 Return value: {std::vector<std::string>}: location name that meets the requirements  
 
 ##### 2> Boundary Conditions Check
-- If the input is empty, the function returns an empty.
-- If the input is not found, the function returns an empty and outputs "No matched locations."
-- Otherwise, the function returns a vector of names given a partial name.
+- If attributesName.empty() || name.empty() || r <= 0 || k <= 0, the function returns an empty.
+- Else returns a vector of string ids
 
 ##### 3> Implementation method
-1) Remove spaces (if exist) at the end of the input string
-2) Traverse all nodes on the map
-3) If the size of input is greater than the size of node’s name, we skip this node
-4) Covert two strings to the lower cases
-5) If the input name is found in the node's name and the index is 0, push the node’s name into result vector
+1) Traverse all nodes on the map  
+2) If its attribute == attributesName and distance <= r, we put this node into a min_heap  
+3) returns at most k elements in the min_heap
+    
 #### 2.8.2.Time Complexity Analysis
-O(n*m), n is the length of input name, m is the size of data.  
-We need to traverse all nodes on the map and compare two strings.
+O(n * logn), n is the size of data.  
+We need to traverse all nodes on the map (time: n) and push into the heap (time: logn). The worst case is all nodes are qualified.  
+
 #### 2.8.3.Time Spent
-Time taken by function: 2 ms
+![image](https://user-images.githubusercontent.com/85814736/166169349-ef235195-00a4-4a38-8e06-deed4d8cc51d.png)
+![image](https://user-images.githubusercontent.com/85814736/166169432-3b76c811-383b-484d-9d4a-b0a81a39c3a5.png)
+
 
 
