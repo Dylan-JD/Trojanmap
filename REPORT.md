@@ -153,21 +153,16 @@ If the input name is invalid, the function returns an empty vector.
     So, Finally the Complexity for Dijkstra is O(m*n).  
 
 #### 2.4.3.Time Spent
-The First row is starting ppoint - destination, the second row is the runtime of Dijkstra, the third row is the runtime of Bellman_Ford   
-If I choose Ralphs as my starting point, Chick-fil-A as my ending point.  
-experiment	Dijkstra	Bellman_Ford
-Ralphs- Leavey Library	928ms	11461ms
-Leavey Library - Proto Homes	1123ms	17537ms
-Lyons Center - PED	978ms	15055ms
-USC Parking - Safety Pole	1058ms	17973ms
-Best Donuts - Subway 1	701ms	24118ms
-![image](https://user-images.githubusercontent.com/97215161/166129148-c934ccab-688b-40b2-93c6-6de1af52dbfd.png)
+The First row is starting point - destination, the second row is the runtime of Dijkstra, the third row is the runtime of Bellman_Ford   
+<div align=center>
+![image](https://user-images.githubusercontent.com/97215161/166129229-5018360c-c8ff-48f5-ace4-6874cb7b3ca7.png)
+</div>
 
-- Dijkstra:  
-Time taken by function: 1031 ms  
-
-- Bellman_Ford:  
-Time taken by function: 11674 ms  
+#### 2.4.4.result
+From leavey library to Proto Homes LLC
+<div align=center>
+![image](https://user-images.githubusercontent.com/97215161/166129298-d88d089f-1173-4761-a2b1-30d42e7e4668.png)
+</div>
 
 ### 2.5. Step 5: Cycle Detection
 #### 2.5.1.Detailed description
@@ -253,7 +248,15 @@ Return value: {bool}: whether there is a cycle or not.
 If I choose {-118.299, -118.264, 34.032, 34.011} as my square input.  
     - CycleDetection: 
     Time taken by function: 0 ms
+    
+#### 2.5.4.Result
+- dose not exist cycle
+<div align=center>
+![image](https://user-images.githubusercontent.com/97215161/166129355-789bfe52-309f-4e6a-a7a9-9f544b66cce2.png)
+</div>
 
+    
+    
 ### 2.6. Step 6: Topological Sort
 #### 2.6.1.Detailed description
 ##### 1> Input and Return Value
@@ -278,6 +281,7 @@ If I choose {-118.299, -118.264, 34.032, 34.011} as my square input.
     If the dependence is empty, it will return a reversed vector of location vectors.  
     If the location sites contain some place that depencence don't have, the output would reverse location first, then put the place that dependency don't have in the first, and then follow the dependence.  
     If the dependency contains some place that location don't have, if will return empty vector.  
+    If the dependency contains cycle, return empty vector.
 
 ##### 3> Implementation method  
 - ReadLocationsFromCSVFile:
