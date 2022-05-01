@@ -380,5 +380,13 @@ We need to traverse all nodes on the map (time: n) and push into the heap (time:
 ![image](https://user-images.githubusercontent.com/85814736/166169349-ef235195-00a4-4a38-8e06-deed4d8cc51d.png)
 ![image](https://user-images.githubusercontent.com/85814736/166169432-3b76c811-383b-484d-9d4a-b0a81a39c3a5.png)
 
-
+### 3. Discussion and Conclusion
+- For shortest path algorithm   
+According to the table 1 in 2.4.3
+the runtime of Dijkstra is extremely shorter than the bellman-ford. But Dijkstra can’t handle negative edges and cycles Because the map doesn’t have this situation, we can use Dijkstra to improve search speed. 
+                                                      
+### 4. Lesson Learned 
+1)	The importance of time complexity and how to analyze the time complexity for different cases.
+2)	We learned shortest path algorithms and the difference between them.
+3)	Travelling salesman problem is really interesting. Early backtracking can obviously improve the algorithm’s performance. And the 2 opt algorithm is amazingly fast to find the optimum path.
 
