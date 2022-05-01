@@ -5,7 +5,7 @@ In this program, we have such data structures, the class Node and class Trojanma
 ![node_attributes](https://user-images.githubusercontent.com/97215161/162642443-c03728f6-7356-4945-baae-0d44264eb178.jpg)   
 The method of trojanmap is shown as below diagram.
 ![image](https://user-images.githubusercontent.com/97215161/166167619-e13af03f-b610-47ae-ae33-f0cbf654c520.png)   
-
+We created a new unodered_map:namemap for trojanmap, which the index is name and the value is id. It is used by GetID to avoid iterate data map. In addition, we have create a cycledetection_helper function to help cycledetection to do dfs.Meanwhile, we also create a helper fuction for travelling trojan backtracking function to do recursive dfs.   
 ## 2.Function Descriptions
 
 ### 2.1. Step 1: Autocomplete the location name
