@@ -356,11 +356,11 @@ TravellingTrojan_2opt(): O(n^2)
 ### 2.8. Step 7: Find Nearby
 #### 2.8.1.Detailed description
 ##### 1> Input and Return Value
-Input: {std::string} className: the name of the class
-       {std::string} locationName: the name of the location
-        {int} r: search radius
-        {int} k: search numbers
-Return value: {std::vector<std::string>}: location name that meets the requirements
+Input: {std::string} className: the name of the class  
+       {std::string} locationName: the name of the location  
+        {int} r: search radius  
+        {int} k: search numbers  
+Return value: {std::vector<std::string>}: location name that meets the requirements  
 
 ##### 2> Boundary Conditions Check
 - If the input is empty, the function returns an empty.
