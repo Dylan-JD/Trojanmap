@@ -349,6 +349,6 @@ TravellingTrojan_Backtracking(): O(n!)
 TravellingTrojan_2opt(): O(n^2)  
 
 #### 2.7.3.Time Spent
-![image](https://user-images.githubusercontent.com/85814736/166167574-65c0fce6-280e-4f8d-8750-664c98e277a7.png)
+![image](https://user-images.githubusercontent.com/85814736/166167615-30336cdd-9bae-4888-be75-534ff5566791.png)
 
 
