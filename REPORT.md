@@ -69,15 +69,20 @@ Return value: {int} distance: edit distance
 
 ##### 2> Boundary Conditions Check
 - If the input is empty, the function returns an empty.
-- If the input is not found, the function returns an empty and outputs "No matched locations."
-- Otherwise, the function returns a vector of names given a partial name.
+- If the input is not found, the function returns a name with the smallest edit distance.
 
 ##### 3> Implementation method
-1) Remove spaces (if exist) from the end of the input string
-2) Traverse all nodes on the map
-3) If the size of input is greater than the size of node’s name, we skip this node
-4) Covert two strings to the lower cases
-5) If the input name is found in the node's name and the index is 0, push the node’s name into result vector
+FindClosestName():
+1) Traverse all nodes on the map
+2) If name is not empty, calculate its edit distance from the input name.
+3) If the distance is less than the minimum edit distance, update the min_distance.
+4) return min_distance.
+
+CalculateEditDistance():
+1) Implemented by dynamic programming
+2) if the ith char of name a == the jth char of name b, dp[i][j] = 1 + std::min(dp[i-1][j-1]-1, std::min(dp[i-1][j], dp[i][j-1]));
+3) else dp[i][j] = 1 + std::min(dp[i-1][j-1], std::min(dp[i-1][j], dp[i][j-1]));
+
 #### 2.3.2.Time Complexity Analysis
 O(n*m), n is the length of input name, m is the size of data.  
 We need to traverse all nodes on the map and compare two strings.
