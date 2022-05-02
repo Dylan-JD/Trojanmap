@@ -382,7 +382,8 @@ We need to traverse all nodes on the map (time: n) and push into the heap (time:
 
 ### 3. Discussion and Conclusion
 - For shortest path algorithm     
-According to the table 1 in 2.4.3  
+According to the table shown in 2.4.3  
+![image](https://user-images.githubusercontent.com/97215161/166129229-5018360c-c8ff-48f5-ace4-6874cb7b3ca7.png)   
 the runtime of Dijkstra is extremely shorter than the bellman-ford. But Dijkstra can’t handle negative edges and cycles Because the map doesn’t have this situation, we can use Dijkstra to improve search speed.   
 - For Travelling Trojan Problem  
 ![image](https://user-images.githubusercontent.com/85814736/166169989-110aed0c-e319-41d9-9317-c3650b7f558e.png)  
