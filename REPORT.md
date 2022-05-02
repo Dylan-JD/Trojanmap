@@ -1,9 +1,11 @@
 # EE538 Final Project - Spring 2022 - TrojanMap
 Students: Jian Dong, Zi Yan
 ## 1.Overview
-In this program, we have such data structures, the class Node and class Trojanmap. The attributes is shown as below diagram.
-![node_attributes](https://user-images.githubusercontent.com/97215161/162642443-c03728f6-7356-4945-baae-0d44264eb178.jpg)
-
+In this program, we have such data structures, the class Node and class Trojanmap. The attributes of node is shown as below diagram.
+![node_attributes](https://user-images.githubusercontent.com/97215161/162642443-c03728f6-7356-4945-baae-0d44264eb178.jpg)   
+The method of trojanmap is shown as below diagram.
+![image](https://user-images.githubusercontent.com/97215161/166167619-e13af03f-b610-47ae-ae33-f0cbf654c520.png)   
+We created a new unodered_map:namemap for trojanmap, which the index is name and the value is id. It is used by GetID to avoid iterate data map. In addition, we have create a cycledetection_helper function to help cycledetection to do dfs.Meanwhile, we also create a helper fuction for travelling trojan backtracking function to do recursive dfs.   
 ## 2.Function Descriptions
 
 ### 2.1. Step 1: Autocomplete the location name
@@ -33,20 +35,28 @@ Time taken by function: 2 ms
 ### 2.2. Step 2-1: Find the place's Coordinates in the Map
 #### 2.2.1.Detailed description
 ##### 1> Input and Return Value
-First, the input of this fucntions is location name(std::string type) and the return value is the pair of (latitude, longitude)(std::pair<double, double> type).
+Input: {std::string} name: location name   
+Return value: {std::pair<double,double>} (lat, lon): the pair of (latitude, longitude)   
 ##### 2> Boundary Conditions Check
-In this function, the input is location name, so we need to check if the location name exists. So we check the return value of GetID to check if the input value is correct. If it isn't correct, the function would return (-1, -1).
+- If the location name does not exist, the function returns  (-1, -1).   
 ##### 3> Implementation method
 For this function, I used data maps and a helper function. Because the input value is location name but the key of data map is id, so  
 1) first, I call the GetID function to get the id through the location name. 
 2) Then, I use id as the index to get the node. Through the attribute in the node we can get latitude and longitude of this location name. 
 3) Then return the pair of (latitude, longitude) as the return value of this function.
 #### 2.2.2.Time Complexity Analysis
-For this function, the helper function GetID contribute the main run time comlplexity. The complexity for GetID is the complexity of searching the key in a unordered_map, it is O(1), and the other operation of GetPosition is constant time complexity, so the time complexity is O(1).
+For this function, the helper function GetID contribute the main run time comlplexity.    
+The complexity for GetID is the complexity of searching the key in a unordered_map, it is O(1) because we have create a unordered_map data structure called name_map, the key is name and the value is ID    
+and the other operation of GetPosition is constant time complexity, so the time complexity is O(1).
 #### 2.2.3.Time Spent
 Time taken by function: 0 ms
 #### 2.2.4 helper functions
-Under this step, we have created a lot of helper funtions to get the attributes of the node, Including GetLat, GetLon, GetName, GetNeighborIDs, GetID. Except GetID, the rest of them are all take ID of the node and return the node's attributes. I just use their id to index the node in data map, and return the attributes value of the node. For all of them we have checked if the id exists in the map. For these functions they only take O(1) to find the id in the map. While for GetID, it takes the location name and return ID, so we need to iterate the data map to find which node's name satisfy the requirement. So it would take O(N). So to avoid iteratint the map every time that we called the GetID. We create a unordered_map data structure called name_map, the key is name and the value is id. It will create when constructing the Trojan class objects. So our GetID function can index the name in O(1) time complexity.
+Under this step, we have created a lot of helper funtions to get the attributes of the node, Including GetLat, GetLon, GetName, GetNeighborIDs, GetID.   
+Except GetID, the rest of them are all take ID of the node and return the node's attributes. I just use their id to index the node in data map, and return the attributes value of the node.   
+For all of them we have checked if the id exists in the map. For these functions they only take O(1) to find the id in the map. While for GetID, it takes the location name and return ID, so we need to iterate the data map to find which node's name satisfy the requirement. So it would take O(N).   
+So to avoid iteratint the map every time that we called the GetID. We create a unordered_map data structure called name_map, the key is name and the value is id. It will create when constructing the Trojan class objects. So our GetID function can index the name in O(1) time complexity.
+#### 2.2.5 result
+
 
 ### 2.3. Step 2-2: Check edit distance between two location names
 #### 2.3.1.Detailed description
@@ -61,20 +71,26 @@ Return value: {int} distance: edit distance
 
 ##### 2> Boundary Conditions Check
 - If the input is empty, the function returns an empty.
-- If the input is not found, the function returns an empty and outputs "No matched locations."
-- Otherwise, the function returns a vector of names given a partial name.
+- If the input is not found, the function returns a name with the smallest edit distance.
 
 ##### 3> Implementation method
-1) Remove spaces (if exist) from the end of the input string
-2) Traverse all nodes on the map
-3) If the size of input is greater than the size of node’s name, we skip this node
-4) Covert two strings to the lower cases
-5) If the input name is found in the node's name and the index is 0, push the node’s name into result vector
+FindClosestName():
+1) Traverse all nodes on the map
+2) If name is not empty, calculate its edit distance from the input name.
+3) If the distance is less than the minimum edit distance, update the min_distance.
+4) return min_distance.
+
+CalculateEditDistance():
+1) Implemented by dynamic programming
+2) if the ith char of name a == the jth char of name b, dp[i][j] = 1 + std::min(dp[i-1][j-1]-1, std::min(dp[i-1][j], dp[i][j-1]));
+3) else dp[i][j] = 1 + std::min(dp[i-1][j-1], std::min(dp[i-1][j], dp[i][j-1]));
+
 #### 2.3.2.Time Complexity Analysis
-O(n*m), n is the length of input name, m is the size of data.  
-We need to traverse all nodes on the map and compare two strings.
+O(n*a*b), n: the size of data, a: the length of input name a, b: the length of input name b.  
+We need to traverse all nodes on the data and compute edit distance from the target name. Computing edit distance: traverse every element in both a and b.  
+
 #### 2.3.3.Time Spent
-Time taken by function: 2 ms
+Time taken by function: 0 ms
 
 ### 2.4. Step 3: CalculateShortestPath between two places
 #### 2.4.1.Detailed description
@@ -145,12 +161,14 @@ If the input name is invalid, the function returns an empty vector.
     So, Finally the Complexity for Dijkstra is O(m*n).  
 
 #### 2.4.3.Time Spent
-If I choose Ralphs as my starting point, Chick-fil-A as my ending point.  
-- Dijkstra:  
-Time taken by function: 1031 ms  
+The First row is starting point - destination, the second row is the runtime of Dijkstra, the third row is the runtime of Bellman_Ford   
+![image](https://user-images.githubusercontent.com/97215161/166129229-5018360c-c8ff-48f5-ace4-6874cb7b3ca7.png)
 
-- Bellman_Ford:  
-Time taken by function: 11674 ms  
+
+#### 2.4.4.result
+From leavey library to Proto Homes LLC
+![image](https://user-images.githubusercontent.com/97215161/166129298-d88d089f-1173-4761-a2b1-30d42e7e4668.png)
+
 
 ### 2.5. Step 5: Cycle Detection
 #### 2.5.1.Detailed description
@@ -236,7 +254,8 @@ Return value: {bool}: whether there is a cycle or not.
 If I choose {-118.299, -118.264, 34.032, 34.011} as my square input.  
     - CycleDetection: 
     Time taken by function: 0 ms
-
+    
+    
 ### 2.6. Step 6: Topological Sort
 #### 2.6.1.Detailed description
 ##### 1> Input and Return Value
@@ -261,6 +280,7 @@ If I choose {-118.299, -118.264, 34.032, 34.011} as my square input.
     If the dependence is empty, it will return a reversed vector of location vectors.  
     If the location sites contain some place that depencence don't have, the output would reverse location first, then put the place that dependency don't have in the first, and then follow the dependence.  
     If the dependency contains some place that location don't have, if will return empty vector.  
+    If the dependency contains cycle, return empty vector.
 
 ##### 3> Implementation method  
 - ReadLocationsFromCSVFile:
@@ -289,7 +309,88 @@ If I choose {-118.299, -118.264, 34.032, 34.011} as my square input.
     
 #### 2.6.3.Time Spent
 - DeliveringTrojan:  
-    if I choose locations Ralphs, KFC, Chick-fil-A  
-    if I choose dependence {Ralphs,Chick-fil-A}, {Ralphs,KFC}, {Chick-fil-A,KFC}  
+    if I choose locations Ralphs, KFC, Chick-fil-A, Arco, Leavey Library, Subway 1, Adams Normandie Historic District, Honda, Main & Pico, Security Checkpoint  
+    if I choose dependence {Ralphs,Chick-fil-A} {Ralphs,KFC} {Chick-fil-A,KFC} {KFC,Arco} {Arco,Leavey Library} {Leavey Library,Subway 1} {Subway 1,Adams Normandie Historic District} {Adams Normandie Historic District,Honda} {Honda,Main & Pico} {Main & Pico,Security Checkpoint}
     Time taken by function: 0 ms
+
+#### 2.6.4. Result
+![image](https://user-images.githubusercontent.com/97215161/166130238-1f1b45b7-bff4-4f8b-a803-9cc5cd136261.png)
+
+### 2.7. Step 4: The Travelling Trojan Problem (AKA Travelling Salesman!)
+#### 2.7.1.Detailed description
+##### 1> Input and Return Value
+- TravellingTrojan_Brute_force(), TravellingTrojan_Backtracking(), and TravellingTrojan_2opt():   
+Input: {std::vector<std::string>} input : a list of locations needs to visit   
+Return value: {std::pair<double, std::vector<std::vector<std::string>>} : a pair of total distance and the all the progress to get final path  
+
+##### 2> Boundary Conditions Check
+- If the input is empty, the function returns an empty.
+- If the input size is 1, the function returns records which the first is 0, the second is the input id.
+- else returns a pair of minimum distance and the all the progress to get final path  
+
+##### 3> Implementation method
+TravellingTrojan_Brute_force():
+1) Implemented by back tracking algorithm.
+2) In each recursion, we traverse all locations.
+3) If current locaiton is not visited, add it to curr_path and update curr_cost.
+4) After calling the backTracking function, we remove the location from the curr_path.
+5) If the curr_path size equals the input size and curr_cost is less than min_cost, we update min_cost and add the curr_path to the result. 
+
+TravellingTrojan_Backtracking():
+1) Same as Brute Force, also implemented by dynamic programming.
+2) The difference is that when the cur_cost >= min_cose we early stop the this recursiong and return.
+
+TravellingTrojan_2opt():
+1) We use two loops to obtain a sub part in location ids vector and reverse this sub part.
+2) If the updated cur_cost is smaller, we go back to start again.
+3) Repeat until no improvement.
+
+#### 2.7.2.Time Complexity Analysis
+TravellingTrojan_Brute_force(): O(n!)   
+TravellingTrojan_Backtracking(): O(n!)   
+TravellingTrojan_2opt(): O(n^2)  
+
+#### 2.7.3.Time Spent
+![image](https://user-images.githubusercontent.com/85814736/166167615-30336cdd-9bae-4888-be75-534ff5566791.png)
     
+### 2.8. Step 7: Find Nearby
+#### 2.8.1.Detailed description
+##### 1> Input and Return Value
+Input:   
+        {std::string} attributesName: the attribute name   
+        {std::string} name: the name of the location  
+        {int} r: search radius  
+        {int} k: search numbers  
+Return value: {std::vector<std::string>}: location name that meets the requirements  
+
+##### 2> Boundary Conditions Check
+- If attributesName.empty() || name.empty() || r <= 0 || k <= 0, the function returns an empty.
+- Else returns a vector of string ids
+
+##### 3> Implementation method
+1) Traverse all nodes on the map  
+2) If its attribute == attributesName and distance <= r, we put this node into a min_heap  
+3) returns at most k elements in the min_heap
+    
+#### 2.8.2.Time Complexity Analysis
+O(n * logn), n is the size of data.  
+We need to traverse all nodes on the map (time: n) and push into the heap (time: logn). The worst case is all nodes are qualified.  
+
+#### 2.8.3.Time Spent
+![image](https://user-images.githubusercontent.com/85814736/166169349-ef235195-00a4-4a38-8e06-deed4d8cc51d.png)
+![image](https://user-images.githubusercontent.com/85814736/166169432-3b76c811-383b-484d-9d4a-b0a81a39c3a5.png)
+
+### 3. Discussion and Conclusion
+- For shortest path algorithm     
+According to the table 1 in 2.4.3  
+the runtime of Dijkstra is extremely shorter than the bellman-ford. But Dijkstra can’t handle negative edges and cycles Because the map doesn’t have this situation, we can use Dijkstra to improve search speed.   
+- For Travelling Trojan Problem  
+![image](https://user-images.githubusercontent.com/85814736/166169989-110aed0c-e319-41d9-9317-c3650b7f558e.png)
+2 opt is the most efficient algorithm. Early backTracking is the second. When the number of points is greater than 12, Brute Force is not practical, but 2 opt only needs several milliseconds.
+
+                                                      
+### 4. Lesson Learned 
+1)	We learned the importance of time complexity and how to analyze the time complexity for different cases.
+2)	We also learned shortest path algorithms and the difference between them.
+3)	Travelling salesman problem is really interesting. Early backtracking can obviously improve the algorithm’s performance. And the 2 opt algorithm is amazingly fast to find the optimum path.
+
