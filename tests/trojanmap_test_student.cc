@@ -70,12 +70,12 @@ TEST(TrojanMapStudentTest, GetSubgraph) {
   EXPECT_EQ(ans2, map.GetSubgraph(square2));
 }
 
-TEST(TrojanMapStudentTest, ReadLocationsFromCSVFile) {
-  TrojanMap map;
-  std::vector<std::string> ans = {"Ralphs", "KFC", "Chick-fil-A"};
-  std::string locations_filename = "/home/ee538/Desktop/EE538_HW/final-project-Dylan-JD/input/topologicalsort_locations.csv";
-  EXPECT_EQ(ans, map.ReadLocationsFromCSVFile(locations_filename));
-}
+// TEST(TrojanMapStudentTest, ReadLocationsFromCSVFile) {
+//   TrojanMap map;
+//   std::vector<std::string> ans = {"Ralphs", "KFC", "Chick-fil-A"};
+//   std::string locations_filename = "/home/ee538/Desktop/EE538_HW/final-project-Dylan-JD/input/topologicalsort_locations.csv";
+//   EXPECT_EQ(ans, map.ReadLocationsFromCSVFile(locations_filename));
+// }
 
 TEST(TrojanMapStudentTest, ReadLocationsFromCSVFile_error) {
   TrojanMap map;
@@ -84,15 +84,15 @@ TEST(TrojanMapStudentTest, ReadLocationsFromCSVFile_error) {
   EXPECT_EQ(ans, map.ReadLocationsFromCSVFile(locations_filename));
 }
 
-TEST(TrojanMapStudentTest, ReadDependenciesFromCSVFile) {
-  TrojanMap map;
-  std::vector<std::string> str1 = {"Ralphs","Chick-fil-A"};
-  std::vector<std::string> str2 = {"Ralphs","KFC"};
-  std::vector<std::string> str3 = {"Chick-fil-A","KFC"};
-  std::vector<std::vector<std::string>>  ans = {str1, str2, str3};
-  std::string dependencies_filename = "/home/ee538/Desktop/EE538_HW/final-project-Dylan-JD/input/topologicalsort_dependencies.csv";
-  EXPECT_EQ(ans, map.ReadDependenciesFromCSVFile(dependencies_filename));
-}
+// TEST(TrojanMapStudentTest, ReadDependenciesFromCSVFile) {
+//   TrojanMap map;
+//   std::vector<std::string> str1 = {"Ralphs","Chick-fil-A"};
+//   std::vector<std::string> str2 = {"Ralphs","KFC"};
+//   std::vector<std::string> str3 = {"Chick-fil-A","KFC"};
+//   std::vector<std::vector<std::string>>  ans = {str1, str2, str3};
+//   std::string dependencies_filename = "/home/ee538/Desktop/EE538_HW/final-project-Dylan-JD/input/topologicalsort_dependencies.csv";
+//   EXPECT_EQ(ans, map.ReadDependenciesFromCSVFile(dependencies_filename));
+// }
 
 TEST(TrojanMapStudentTest, ReadDependenciesFromCSVFile_error) {
   TrojanMap map;
