@@ -155,6 +155,24 @@ TEST(TrojanMapStudentTest, CalculateShortestPath_Bellman_Ford) {
   EXPECT_EQ(result3, gt);
 }
 
+TEST(TrojanMapStudentTest, CycleDetection) {
+  TrojanMap m;
+  std::vector<std::string> gt;
+  std::vector<double> square1 = {-118.296, -118.263, 34.034, 34.009};
+  std::vector<double> square2 = {-118.290, -118.289, 34.028, 34.022};
+  std::vector<double> square3;
+  std::vector<std::string> sub3;
+  auto sub1 = m.GetSubgraph(square1);
+  auto sub2 = m.GetSubgraph(square2);
+  auto result1 = m.CycleDetection(sub1, square1);
+  auto result2 = m.CycleDetection(sub2, square2);
+  EXPECT_EQ(result1, true);
+  EXPECT_EQ(result2, false);
+  auto result3 = m.CycleDetection(sub2, square3);
+  EXPECT_EQ(result3, false);
+  auto result4 = m.CycleDetection(sub3, square1);
+  EXPECT_EQ(result4, false);
+}
 
 
 
