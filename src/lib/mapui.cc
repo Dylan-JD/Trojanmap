@@ -174,6 +174,7 @@ void MapUI::PrintMenu() {
     std::cout << "\nCalculating ..." << std::endl;
     auto start = std::chrono::high_resolution_clock::now();
     auto results = map.TravellingTrojan_Brute_force(locations);
+    // std::pair<double, std::vector<std::vector<std::string>>> results;////
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
     CreateAnimation(results.second, "output0.avi");

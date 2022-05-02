@@ -110,10 +110,11 @@ class TrojanMap {
   // path.)
   std::pair<double, std::vector<std::vector<std::string>>> TravellingTrojan_Brute_force(
       std::vector<std::string> location_ids);
-  
-  void backTracking_helper(std::vector<std::string>& location_ids, 
-                            std::pair<double, std::vector<std::vector<std::string>>> & records,
-                            long unsigned int level, double& min_distance, std::vector<std::string>& min_ids);
+
+  void earlyBacktracking(std::string& start_node, std::string cur_node, double cur_cost,
+                        double& min_cost, std::vector<std::string>& cur_path,
+                        std::vector<std::string>& min_path, std::vector<std::string>& location_ids,
+                        std::pair<double, std::vector<std::vector<std::string>>> & records);
 
   std::pair<double, std::vector<std::vector<std::string>>> TravellingTrojan_Backtracking(
       std::vector<std::string> location_ids);

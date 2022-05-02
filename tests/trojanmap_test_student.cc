@@ -70,29 +70,12 @@ TEST(TrojanMapStudentTest, GetSubgraph) {
   EXPECT_EQ(ans2, map.GetSubgraph(square2));
 }
 
-// TEST(TrojanMapStudentTest, ReadLocationsFromCSVFile) {
-//   TrojanMap map;
-//   std::vector<std::string> ans = {"Ralphs", "KFC", "Chick-fil-A"};
-//   std::string locations_filename = "/home/ee538/Desktop/EE538_HW/final-project-Dylan-JD/input/topologicalsort_locations.csv";
-//   EXPECT_EQ(ans, map.ReadLocationsFromCSVFile(locations_filename));
-// }
-
 TEST(TrojanMapStudentTest, ReadLocationsFromCSVFile_error) {
   TrojanMap map;
   std::vector<std::string> ans = {};
   std::string locations_filename = "/home/ee538/Desktop/EE538_HW/final-project-Dylan-JD/input/error.csv";
   EXPECT_EQ(ans, map.ReadLocationsFromCSVFile(locations_filename));
 }
-
-// TEST(TrojanMapStudentTest, ReadDependenciesFromCSVFile) {
-//   TrojanMap map;
-//   std::vector<std::string> str1 = {"Ralphs","Chick-fil-A"};
-//   std::vector<std::string> str2 = {"Ralphs","KFC"};
-//   std::vector<std::string> str3 = {"Chick-fil-A","KFC"};
-//   std::vector<std::vector<std::string>>  ans = {str1, str2, str3};
-//   std::string dependencies_filename = "/home/ee538/Desktop/EE538_HW/final-project-Dylan-JD/input/topologicalsort_dependencies.csv";
-//   EXPECT_EQ(ans, map.ReadDependenciesFromCSVFile(dependencies_filename));
-// }
 
 TEST(TrojanMapStudentTest, ReadDependenciesFromCSVFile_error) {
   TrojanMap map;
@@ -175,5 +158,122 @@ TEST(TrojanMapStudentTest, CycleDetection) {
 }
 
 
+// Test Autocomplete function
+TEST(TrojanMapTest, Autocomplete) {
+  TrojanMap m;
+  // Test the simple case
+  auto names = m.Autocomplete("ra");
+  std::unordered_set<std::string> gt = {"Ramen KenJo", "Ralphs"}; // groundtruth for "ra"
+  int success = 0;
+  for (auto& n: names) {
+    EXPECT_EQ(gt.count(n) > 0, true) << n + " is not in gt.";
+    if (gt.count(n) > 0){
+      success++;
+    }
+  }
+  EXPECT_EQ(success, gt.size());
+  // Test the lower case
+  names = m.Autocomplete("rA");
+  success = 0;
+  for (auto& n: names) {
+    EXPECT_EQ(gt.count(n) > 0, true) << n + " is not in gt.";
+    if (gt.count(n) > 0){
+      success++;
+    }
+  }
+  EXPECT_EQ(success, gt.size());
+  // Test the lower and upper case 
+  names = m.Autocomplete("Ra"); 
+  success = 0;
+  for (auto& n: names) {
+    EXPECT_EQ(gt.count(n) > 0, true) << n + " is not in gt.";
+    if (gt.count(n) > 0){
+      success++;
+    }
+  }
+  EXPECT_EQ(success, gt.size());
+  // Test the upper case 
+  names = m.Autocomplete("RA"); 
+  success = 0;
+  for (auto& n: names) {
+    EXPECT_EQ(gt.count(n) > 0, true) << n + " is not in gt.";
+    if (gt.count(n) > 0){
+      success++;
+    }
+  }
+  EXPECT_EQ(success, gt.size());
+}
+
+// Test FindClosestName function
+TEST(TrojanMapTest, FindClosestName) {
+  TrojanMap m;
+  EXPECT_EQ(m.FindClosestName("Kfaa"), "KFC");
+  EXPECT_EQ(m.FindClosestName("tragggt"), "Target");
+}
+
+// Phase 3
+// Test TSP function
+TEST(TrojanMapTest, TSP1) {
+  TrojanMap m;
+  
+  std::vector<std::string> input{"122840573","2611809635","2514541158","3402866628","2557647956","7377797474","122918140","1630930197"}; // Input location ids 
+  auto result = m.TravellingTrojan_Brute_force(input);
+  std::cout << "My path length: "  << result.first << "miles" << std::endl; // Print the result path lengths
+  std::vector<std::string> gt{"122840573","2557647956","1630930197","7377797474","2514541158","122918140","3402866628","2611809635","122840573"}; // Expected order
+  std::cout << "GT path length: "  << m.CalculatePathLength(gt) << "miles" << std::endl; // Print the gt path lengths
+  bool flag = false;
+  if (gt == result.second[result.second.size()-1]) // clockwise
+    flag = true;
+  std::reverse(gt.begin(),gt.end()); // Reverse the expected order because the counterclockwise result is also correct
+  if (gt == result.second[result.second.size()-1]) 
+    flag = true;
+
+  EXPECT_EQ(flag, true);
+}
+
+TEST(TrojanMapTest, TSP2) {
+  TrojanMap m;
+  
+  std::vector<std::string> input{"122840573","2611809635","2514541158","3402866628","2557647956","7377797474","122918140","1630930197"}; // Input location ids 
+  auto result = m.TravellingTrojan_Backtracking(input);
+  std::cout << "My path length: "  << result.first << "miles" << std::endl; // Print the result path lengths
+  std::vector<std::string> gt{"122840573","2557647956","1630930197","7377797474","2514541158","122918140","3402866628","2611809635","122840573"}; // Expected order
+  std::cout << "GT path length: "  << m.CalculatePathLength(gt) << "miles" << std::endl; // Print the gt path lengths
+  bool flag = false;
+  if (gt == result.second[result.second.size()-1]) // clockwise
+    flag = true;
+  std::reverse(gt.begin(),gt.end()); // Reverse the expected order because the counterclockwise result is also correct
+  if (gt == result.second[result.second.size()-1]) 
+    flag = true;
+  
+  EXPECT_EQ(flag, true);
+}
+
+TEST(TrojanMapTest, TSP3) {
+  TrojanMap m;
+  
+  std::vector<std::string> input{"122840573","2611809635","2514541158","3402866628","2557647956","7377797474","122918140","1630930197"}; // Input location ids  
+  auto result = m.TravellingTrojan_2opt(input);
+  std::cout << "My path length: "  << result.first << "miles" << std::endl; // Print the result path lengths
+  std::vector<std::string> gt{"122840573","2557647956","1630930197","7377797474","2514541158","122918140","3402866628","2611809635","122840573"}; // Expected order
+  std::cout << "GT path length: "  << m.CalculatePathLength(gt) << "miles" << std::endl; // Print the gt path lengths
+  bool flag = false;
+  if (gt == result.second[result.second.size()-1]) // clockwise
+    flag = true;
+  std::reverse(gt.begin(),gt.end()); // Reverse the expected order because the counterclockwise result is also correct
+  if (gt == result.second[result.second.size()-1]) 
+    flag = true;
+  
+  EXPECT_EQ(flag, true);
+}
+
+// Test FindNearby points
+TEST(TrojanMapTest, FindNearby) {
+  TrojanMap m;
+  
+  auto result = m.FindNearby("parking", "Ralphs", 10, 10);
+  std::vector<std::string> ans{"6045067407", "732642214"};
+  EXPECT_EQ(result, ans);
+}
 
 
