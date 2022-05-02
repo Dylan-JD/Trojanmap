@@ -133,8 +133,27 @@ TEST(TrojanMapStudentTest, TopologicalSort) {
   EXPECT_EQ(result7, gt4);
 }
 
+TEST(TrojanMapStudentTest, CalculateShortestPath_Dijkstra) {
+  TrojanMap m;
+  std::vector<std::string> gt;
+  auto result1 = m.CalculateShortestPath_Dijkstra("error", "error");
+  EXPECT_EQ(result1, gt);
+  auto result2 = m.CalculateShortestPath_Dijkstra("leavey library", "error");
+  EXPECT_EQ(result2, gt);
+  auto result3 = m.CalculateShortestPath_Dijkstra("Leavey Library", "dulce");
+  EXPECT_EQ(result3, gt);
+}
 
-
+TEST(TrojanMapStudentTest, CalculateShortestPath_Bellman_Ford) {
+  TrojanMap m;
+  std::vector<std::string> gt;
+  auto result1 = m.CalculateShortestPath_Bellman_Ford("error", "error");
+  EXPECT_EQ(result1, gt);
+  auto result2 = m.CalculateShortestPath_Bellman_Ford("leavey library", "error");
+  EXPECT_EQ(result2, gt);
+  auto result3 = m.CalculateShortestPath_Bellman_Ford("Leavey Library", "error");
+  EXPECT_EQ(result3, gt);
+}
 
 
 
